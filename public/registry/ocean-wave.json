@@ -1,0 +1,12 @@
+{
+  "name": "ocean-wave",
+  "type": "registry:ui",
+  "files": [
+    {
+      "path": "components/shaders/ocean-wave.tsx",
+      "content": "... (component code as string)",
+      "type": "registry:ui"
+    }
+  ],
+  "dependencies": ["@paper-design/shaders-react"]
+}
