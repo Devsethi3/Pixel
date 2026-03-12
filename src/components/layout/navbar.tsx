@@ -55,11 +55,6 @@ export function Navbar() {
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5">
-              <div className="flex size-7 items-center justify-center rounded-lg bg-primary">
-                <span className="text-xs font-bold text-primary-foreground">
-                  Px
-                </span>
-              </div>
               <span className="text-sm font-semibold tracking-tight">
                 {SITE_CONFIG.name}
               </span>
@@ -85,17 +80,6 @@ export function Navbar() {
                     )}
                   >
                     {link.label}
-                    {isActive && (
-                      <motion.div
-                        layoutId="navbar-indicator"
-                        className="absolute inset-x-1 -bottom-[1.19rem] h-px bg-foreground"
-                        transition={{
-                          type: "spring",
-                          stiffness: 380,
-                          damping: 30,
-                        }}
-                      />
-                    )}
                   </Link>
                 );
               })}

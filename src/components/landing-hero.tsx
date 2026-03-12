@@ -8,6 +8,8 @@ import { GrainGradient } from "@paper-design/shaders-react";
 
 import { Button } from "@/components/ui/button";
 import { SITE_CONFIG } from "@/lib/constants";
+import { PixelHeading } from "./ui/pixel-heading-word";
+import { PixelParagraph } from "./ui/pixel-paragraph-words";
 
 export function LandingHero() {
   const [ready, setReady] = useState(false);
@@ -40,18 +42,17 @@ export function LandingHero() {
             width: "100%",
             height: "100%",
             zIndex: 0,
-            opacity: 0.4,
           }}
         />
       )}
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28">
+      <div className="relative z-10 mx-auto max-w-6xl py-20 sm:px-2 sm:py-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-          className="max-w-3xl space-y-6"
+          className="space-y-6"
         >
           {/* Badge */}
           <motion.span
@@ -63,7 +64,7 @@ export function LandingHero() {
             <Terminal className="size-3" />
             Open Source
             <span className="hidden sm:inline text-muted-foreground">
-              · shadcn CLI Compatible
+              | shadcn CLI Compatible
             </span>
           </motion.span>
 
@@ -74,14 +75,22 @@ export function LandingHero() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="space-y-2"
           >
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              <span className="bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
-                Beautiful shader
-              </span>
+            <h1 className="text-4xl tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              <PixelHeading
+                initialFont="square"
+                hoverFont="circle"
+                className="text-6xl"
+              >
+                Shaders Backgrounds
+              </PixelHeading>
               <br />
-              <span className="bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
-                backgrounds.
-              </span>
+              <PixelHeading
+                initialFont="square"
+                hoverFont="circle"
+                className="text-6xl"
+              >
+                Copy and Paste
+              </PixelHeading>
             </h1>
           </motion.div>
 
@@ -92,8 +101,19 @@ export function LandingHero() {
             transition={{ delay: 0.3, duration: 0.5 }}
             className="max-w-lg text-base text-muted-foreground leading-relaxed sm:text-lg"
           >
-            Production-ready shader components for React & Next.js. Copy and
-            paste with shadcn CLI. Open source. Free forever.
+            <PixelParagraph
+              text="Production-ready shader components for React & Next.js. Copy and paste with shadcn CLI. Open source. Free forever."
+              pixelWords={[
+                "shader",
+                "components",
+                "Copy",
+                "Paste",
+                "shadcn",
+                "cli",
+              ]}
+              font="square"
+              className="text-lg text-muted-foreground"
+            />
           </motion.p>
 
           {/* Actions */}
