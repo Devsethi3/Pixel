@@ -9,10 +9,30 @@ import { GrainGradient } from "@paper-design/shaders-react";
 import { Button } from "@/components/ui/button";
 import { SITE_CONFIG } from "@/lib/constants";
 import { PixelHeading } from "./ui/pixel-heading-word";
-import { PixelParagraph } from "./ui/pixel-paragraph-words";
+import { PixelParagraphInverse } from "./ui/pixel-paragraph-words-inverse";
+
+const DEFAULT_TEXT =
+  "Production-ready shader components for React & Next.js. Copy and paste with shadcn CLI. Open source.";
+const DEFAULT_PLAIN_WORDS = "shader,components,Open, source, shadcn, CLI";
+
+const PIXEL_FONTS = ["square", "grid", "circle", "triangle", "line"] as const;
+type PixelFont = (typeof PIXEL_FONTS)[number];
+const PLAIN_FONTS = ["sans", "mono"] as const;
+type PlainFont = (typeof PLAIN_FONTS)[number];
+const WRAPPER_TAGS = ["p", "span", "div"] as const;
 
 export function LandingHero() {
   const [ready, setReady] = useState(false);
+  const [text, setText] = useState(DEFAULT_TEXT);
+  const [plainWordsInput, setPlainWordsInput] = useState(DEFAULT_PLAIN_WORDS);
+  const [pixelFont, setPixelFont] = useState<PixelFont>("square");
+  const [plainFont, setPlainFont] = useState<PlainFont>("sans");
+  const [wrapperTag, setWrapperTag] =
+    useState<(typeof WRAPPER_TAGS)[number]>("p");
+  const plainWords = plainWordsInput
+    .split(",")
+    .map((w) => w.trim())
+    .filter(Boolean);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setReady(true));
@@ -101,18 +121,14 @@ export function LandingHero() {
             transition={{ delay: 0.3, duration: 0.5 }}
             className="max-w-lg text-base text-muted-foreground leading-relaxed sm:text-lg"
           >
-            <PixelParagraph
-              text="Production-ready shader components for React & Next.js. Copy and paste with shadcn CLI. Open source. Free forever."
-              pixelWords={[
-                "shader",
-                "components",
-                "Copy",
-                "Paste",
-                "shadcn",
-                "cli",
-              ]}
-              font="square"
-              className="text-lg text-muted-foreground"
+            <PixelParagraphInverse
+              text={text}
+              plainWords={plainWords}
+              as={wrapperTag}
+              pixelFont={pixelFont}
+              plainFont={plainFont}
+              className="max-w-xl text-lg leading-relaxed text-muted-foreground"
+              plainWordClassName="text-foreground"
             />
           </motion.p>
 
