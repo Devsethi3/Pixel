@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { SITE_CONFIG } from "@/lib/constants";
 import { PixelHeading } from "./ui/pixel-heading-word";
 import { PixelParagraphInverse } from "./ui/pixel-paragraph-words-inverse";
+import { CodeBlockCommand } from "./docs/code-block-command";
 
 const DEFAULT_TEXT =
   "Production-ready shader components for React & Next.js. Copy and paste with shadcn CLI. Open source.";
@@ -131,6 +132,15 @@ export function LandingHero() {
               plainWordClassName="text-foreground"
             />
           </motion.p>
+
+          <div className="w-full max-w-md">
+            <CodeBlockCommand
+              pnpm="pnpm dlx shadcn add @ncdai/code-block-command"
+              yarn="yarn shadcn add @ncdai/code-block-command"
+              npm="npx shadcn add @ncdai/code-block-command"
+              bun="bunx --bun shadcn add @ncdai/code-block-command"
+            />
+          </div>
 
           {/* Actions */}
           <motion.div
