@@ -2,13 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { GrainGradient } from "@paper-design/shaders-react";
+import { cn } from "@/lib/utils";
 
 interface SunsetGlowProps {
   children?: React.ReactNode;
   className?: string;
+  speed?: number;
+  intensity?: number;
 }
 
-export default function SunsetGlow({ children, className }: SunsetGlowProps) {
+export default function SunsetGlow({
+  children,
+  className,
+  speed = 0.12,
+  intensity = 0.18,
+}: SunsetGlowProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -18,20 +26,20 @@ export default function SunsetGlow({ children, className }: SunsetGlowProps) {
 
   return (
     <div
-      className={className}
-      style={{ position: "relative", overflow: "hidden" }}
+      className={cn("relative overflow-hidden", className)}
+      style={{ position: "relative" }}
     >
       {ready && (
         <GrainGradient
-          colors={["#FF6B9D", "#FFA07A", "#FFD700"]}
+          colors={["#FF6B35", "#FF8E72", "#E83E8C"]}
           colorBack="#00000000"
-          speed={0.12}
-          scale={0.65}
+          speed={speed}
+          scale={0.55}
           rotation={45}
-          offsetX={0}
-          offsetY={0}
-          softness={0.8}
-          intensity={0.14}
+          offsetX={-0.1}
+          offsetY={0.2}
+          softness={0.65}
+          intensity={intensity}
           noise={0.18}
           shape="wave"
           style={{

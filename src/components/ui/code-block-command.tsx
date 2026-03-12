@@ -9,12 +9,12 @@ import {
   TabsIndicator,
   TabsList,
   TabsTrigger,
-} from "@/components/tabs"
+} from "@/components/ui/tabs"
 import {
   type PackageManager,
   usePackageManager,
 } from "@/hooks/use-package-manager"
-import { CopyButton } from "@/components/copy-button"
+import { CopyButton } from "@/components/ui/copy-button"
 
 /**
  * Props for the CodeBlockCommand component.

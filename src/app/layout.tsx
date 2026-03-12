@@ -11,7 +11,9 @@ import {
   GeistPixelTriangle,
   GeistPixelLine,
 } from "geist/font/pixel";
-import { ThemeProvider } from "@/components/theme-provider";
+import { Providers } from "@/components/providers/providers";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -36,18 +38,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
+    <html
+      lang="en"
+      className={cn("font-sans", inter.variable)}
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${inter.variable} ${geistMono.variable} ${GeistSans.variable} ${GeistMono.variable} ${GeistPixelSquare.variable} ${GeistPixelGrid.variable} ${GeistPixelCircle.variable} ${GeistPixelTriangle.variable} ${GeistPixelLine.variable}`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
+        <Providers>
+          <div className="relative flex min-h-screen flex-col">
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </Providers>
       </body>
     </html>
   );

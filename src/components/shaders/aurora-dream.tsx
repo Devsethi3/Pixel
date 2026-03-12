@@ -2,13 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { GrainGradient } from "@paper-design/shaders-react";
+import { cn } from "@/lib/utils";
 
 interface AuroraDreamProps {
   children?: React.ReactNode;
   className?: string;
+  speed?: number;
+  intensity?: number;
 }
 
-export default function AuroraDream({ children, className }: AuroraDreamProps) {
+export default function AuroraDream({
+  children,
+  className,
+  speed = 0.1,
+  intensity = 0.22,
+}: AuroraDreamProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -18,21 +26,21 @@ export default function AuroraDream({ children, className }: AuroraDreamProps) {
 
   return (
     <div
-      className={className}
-      style={{ position: "relative", overflow: "hidden" }}
+      className={cn("relative overflow-hidden", className)}
+      style={{ position: "relative" }}
     >
       {ready && (
         <GrainGradient
-          colors={["#00FFA3", "#03E1FF", "#DC1FFF"]}
+          colors={["#00FF88", "#7B2FFF", "#00BBFF"]}
           colorBack="#00000000"
-          speed={0.2}
-          scale={0.45}
-          rotation={90}
+          speed={speed}
+          scale={0.65}
+          rotation={-90}
           offsetX={0.15}
-          offsetY={-0.15}
-          softness={0.75}
-          intensity={0.2}
-          noise={0.25}
+          offsetY={0.1}
+          softness={0.6}
+          intensity={intensity}
+          noise={0.24}
           shape="wave"
           style={{
             position: "absolute",

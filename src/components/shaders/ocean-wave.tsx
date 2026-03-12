@@ -2,13 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { GrainGradient } from "@paper-design/shaders-react";
+import { cn } from "@/lib/utils";
 
 interface OceanWaveProps {
   children?: React.ReactNode;
   className?: string;
+  speed?: number;
+  intensity?: number;
 }
 
-export default function OceanWave({ children, className }: OceanWaveProps) {
+export default function OceanWave({
+  children,
+  className,
+  speed = 0.15,
+  intensity = 0.2,
+}: OceanWaveProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -18,21 +26,21 @@ export default function OceanWave({ children, className }: OceanWaveProps) {
 
   return (
     <div
-      className={className}
-      style={{ position: "relative", overflow: "hidden" }}
+      className={cn("relative overflow-hidden", className)}
+      style={{ position: "relative" }}
     >
       {ready && (
         <GrainGradient
-          colors={["#9F8EEC", "#6696EA", "#3F7CFF"]}
+          colors={["#0066FF", "#00AAFF", "#004488"]}
           colorBack="#00000000"
-          speed={0.17}
-          scale={0.57}
-          rotation={-143}
-          offsetX={0.2}
-          offsetY={-0.27}
-          softness={0.67}
-          intensity={0.16}
-          noise={0.21}
+          speed={speed}
+          scale={0.6}
+          rotation={-30}
+          offsetX={0.1}
+          offsetY={-0.15}
+          softness={0.7}
+          intensity={intensity}
+          noise={0.2}
           shape="wave"
           style={{
             position: "absolute",

@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import { GrainGradient } from "@paper-design/shaders-react";
 import { cn } from "@/lib/utils";
 
-interface MeshGradientProps {
+interface GridMorphProps {
   children?: React.ReactNode;
   className?: string;
   speed?: number;
   intensity?: number;
 }
 
-export default function MeshGradient({
+export default function GridMorph({
   children,
   className,
-  speed = 0.17,
-  intensity = 0.16,
-}: MeshGradientProps) {
+  speed = 0.12,
+  intensity = 0.18,
+}: GridMorphProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -31,16 +31,16 @@ export default function MeshGradient({
     >
       {ready && (
         <GrainGradient
-          colors={["#9F8EEC", "#E879A8", "#6696EA"]}
+          colors={["#6366F1", "#818CF8", "#334155"]}
           colorBack="#00000000"
           speed={speed}
-          scale={0.57}
-          rotation={-143}
-          offsetX={0.2}
-          offsetY={-0.27}
-          softness={0.67}
+          scale={0.5}
+          rotation={-120}
+          offsetX={-0.1}
+          offsetY={-0.2}
+          softness={0.6}
           intensity={intensity}
-          noise={0.21}
+          noise={0.19}
           shape="wave"
           style={{
             position: "absolute",

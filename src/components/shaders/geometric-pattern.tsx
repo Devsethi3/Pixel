@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import { GrainGradient } from "@paper-design/shaders-react";
 import { cn } from "@/lib/utils";
 
-interface MeshGradientProps {
+interface GeometricPatternProps {
   children?: React.ReactNode;
   className?: string;
   speed?: number;
   intensity?: number;
 }
 
-export default function MeshGradient({
+export default function GeometricPattern({
   children,
   className,
-  speed = 0.17,
-  intensity = 0.16,
-}: MeshGradientProps) {
+  speed = 0.14,
+  intensity = 0.15,
+}: GeometricPatternProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -31,16 +31,16 @@ export default function MeshGradient({
     >
       {ready && (
         <GrainGradient
-          colors={["#9F8EEC", "#E879A8", "#6696EA"]}
+          colors={["#F59E0B", "#D97706", "#92400E"]}
           colorBack="#00000000"
           speed={speed}
-          scale={0.57}
-          rotation={-143}
-          offsetX={0.2}
-          offsetY={-0.27}
-          softness={0.67}
+          scale={0.45}
+          rotation={75}
+          offsetX={0.25}
+          offsetY={-0.05}
+          softness={0.62}
           intensity={intensity}
-          noise={0.21}
+          noise={0.15}
           shape="wave"
           style={{
             position: "absolute",

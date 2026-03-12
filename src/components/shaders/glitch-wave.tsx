@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import { GrainGradient } from "@paper-design/shaders-react";
 import { cn } from "@/lib/utils";
 
-interface MeshGradientProps {
+interface GlitchWaveProps {
   children?: React.ReactNode;
   className?: string;
   speed?: number;
   intensity?: number;
 }
 
-export default function MeshGradient({
+export default function GlitchWave({
   children,
   className,
-  speed = 0.17,
-  intensity = 0.16,
-}: MeshGradientProps) {
+  speed = 0.18,
+  intensity = 0.22,
+}: GlitchWaveProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -31,16 +31,16 @@ export default function MeshGradient({
     >
       {ready && (
         <GrainGradient
-          colors={["#9F8EEC", "#E879A8", "#6696EA"]}
-          colorBack="#00000000"
+          colors={["#EF4444", "#DC2626", "#1C1917"]}
+          colorBack="#0A0000"
           speed={speed}
-          scale={0.57}
-          rotation={-143}
-          offsetX={0.2}
-          offsetY={-0.27}
-          softness={0.67}
+          scale={0.42}
+          rotation={-45}
+          offsetX={0.3}
+          offsetY={0.1}
+          softness={0.45}
           intensity={intensity}
-          noise={0.21}
+          noise={0.3}
           shape="wave"
           style={{
             position: "absolute",

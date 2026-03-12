@@ -4,19 +4,19 @@ import { useEffect, useState } from "react";
 import { GrainGradient } from "@paper-design/shaders-react";
 import { cn } from "@/lib/utils";
 
-interface MeshGradientProps {
+interface NeonPulseProps {
   children?: React.ReactNode;
   className?: string;
   speed?: number;
   intensity?: number;
 }
 
-export default function MeshGradient({
+export default function NeonPulse({
   children,
   className,
-  speed = 0.17,
-  intensity = 0.16,
-}: MeshGradientProps) {
+  speed = 0.2,
+  intensity = 0.2,
+}: NeonPulseProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -31,16 +31,16 @@ export default function MeshGradient({
     >
       {ready && (
         <GrainGradient
-          colors={["#9F8EEC", "#E879A8", "#6696EA"]}
-          colorBack="#00000000"
+          colors={["#00FFFF", "#FF00FF", "#0A0A2E"]}
+          colorBack="#05051A"
           speed={speed}
-          scale={0.57}
-          rotation={-143}
-          offsetX={0.2}
-          offsetY={-0.27}
-          softness={0.67}
+          scale={0.48}
+          rotation={120}
+          offsetX={0.05}
+          offsetY={-0.1}
+          softness={0.5}
           intensity={intensity}
-          noise={0.21}
+          noise={0.22}
           shape="wave"
           style={{
             position: "absolute",
