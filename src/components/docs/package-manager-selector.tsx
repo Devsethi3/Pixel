@@ -50,7 +50,7 @@ export function PackageManagerSelector() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+        className="flex items-center gap-1.5 rounded-md border px-2.5 py-2 text-xs font-medium border-border hover:bg-input/50 hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:bg-input/30"
         aria-label="Select package manager"
       >
         {PM_ICONS[manager]}

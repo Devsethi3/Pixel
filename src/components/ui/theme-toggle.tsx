@@ -18,7 +18,7 @@ const ThemeToggle = ({ onMouseEnter }: ThemeToggleProps) => {
 
   return (
     <Button
-      variant="secondary"
+      variant="outline"
       size="icon-lg"
       onMouseEnter={onMouseEnter}
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
