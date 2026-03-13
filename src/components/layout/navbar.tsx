@@ -11,6 +11,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { PackageManagerSelector } from "@/components/docs/package-manager-selector";
 import ThemeToggle from "../ui/theme-toggle";
+import Logo from "../ui/logo";
 
 const navLinks = [
   { href: "/", label: "Gallery" },
@@ -49,16 +50,12 @@ export function Navbar() {
       border
       transition-all duration-300
       `,
-            isScrolled && "max-w-4xl px-3 sm:px-4 lg:px-5",
+            // isScrolled && "max-w-4xl px-3 sm:px-4 lg:px-5",
           )}
         >
           <div className="mx-auto flex h-14 max-w-7xl items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5">
-              <span className="text-sm font-semibold tracking-tight">
-                {SITE_CONFIG.name}
-              </span>
-            </Link>
+            <Logo />
 
             {/* Desktop Nav */}
             <nav className="hidden items-center gap-1 md:flex">

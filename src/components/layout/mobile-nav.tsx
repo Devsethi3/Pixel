@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
@@ -11,8 +11,22 @@ export function MobileDocNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close on navigation
-  const handleClose = () => setOpen(false);
+  // Close on route change
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  // Lock body scroll when open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
+  }, [open]);
+
+  const handleClose = useCallback(() => setOpen(false), []);
 
   return (
     <div className="lg:hidden">
@@ -20,10 +34,10 @@ export function MobileDocNav() {
         variant="outline"
         size="sm"
         onClick={() => setOpen(true)}
-        className="mb-4 gap-2"
+        className="mb-6 gap-2 text-muted-foreground"
       >
         <Menu className="size-4" />
-        Navigation
+        Menu
       </Button>
 
       <AnimatePresence>
@@ -34,32 +48,42 @@ export function MobileDocNav() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]"
               onClick={handleClose}
             />
 
-            {/* Panel */}
+            {/* Drawer */}
             <motion.div
               initial={{ x: "-100%" }}
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed inset-y-0 left-0 z-50 w-72 border-r border-border bg-background p-4 shadow-lg"
+              transition={{
+                type: "spring",
+                stiffness: 400,
+                damping: 35,
+                mass: 0.8,
+              }}
+              className="fixed inset-y-0 left-0 z-50 flex w-72 flex-col border-r border-border bg-background shadow-2xl"
             >
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-sm font-semibold">Navigation</span>
+              {/* Header */}
+              <div className="flex h-14 items-center justify-between border-b border-border px-4">
+                <span className="text-sm font-semibold tracking-tight">
+                  Documentation
+                </span>
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="size-8"
+                  className="size-8 text-muted-foreground hover:text-foreground"
                   onClick={handleClose}
                 >
                   <X className="size-4" />
                 </Button>
               </div>
 
-              <div onClick={handleClose}>
-                <MobileSidebar />
+              {/* Scrollable content */}
+              <div className="flex-1 overflow-y-auto">
+                <MobileSidebar onClose={handleClose} />
               </div>
             </motion.div>
           </>

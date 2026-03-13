@@ -9,7 +9,7 @@ import {
   TabsIndicator,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs";
+} from "@/components/ui/code-tab";
 import {
   type PackageManager,
   usePackageManager,
@@ -154,7 +154,7 @@ export function CodeBlockCommand({
       <CopyButton
         className="absolute top-2 right-2 z-10 rounded-md border-none"
         variant="secondary"
-        size="icon-xs"
+        size="icon-sm"
         text={tabs[packageManager] || ""}
         onCopySuccess={(copiedCommand) => {
           onCopySuccess?.({

@@ -22,7 +22,7 @@ import { CodeBlockCommand } from "./ui/code-block-command";
 
 const DEFAULT_TEXT =
   "Production-ready shader components for React & Next.js. Copy and paste with shadcn CLI. Open source.";
-const DEFAULT_PLAIN_WORDS = "shader,components,Open, source, shadcn, CLI";
+const DEFAULT_PLAIN_WORDS = "shader,components, shadcn, CLI";
 
 const PIXEL_FONTS = ["square", "grid", "circle", "triangle", "line"] as const;
 type PixelFont = (typeof PIXEL_FONTS)[number];
@@ -76,7 +76,7 @@ export function LandingHero() {
       )}
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-6xl py-20 px-2 sm:py-28">
+      <div className="relative z-10 mx-auto max-w-6xl px-2 py-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -109,17 +109,11 @@ export function LandingHero() {
             className="space-y-2"
           >
             <h1 className="text-4xl tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
-              <PixelHeading
-                initialFont="square"
-                hoverFont="circle"
-              >
+              <PixelHeading initialFont="square" hoverFont="circle">
                 Shaders Backgrounds
               </PixelHeading>
               <br />
-              <PixelHeading
-                initialFont="square"
-                hoverFont="circle"
-              >
+              <PixelHeading initialFont="square" hoverFont="circle">
                 Copy and Paste
               </PixelHeading>
             </h1>

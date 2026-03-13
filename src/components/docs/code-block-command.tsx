@@ -1,14 +1,13 @@
 "use client";
 
-import { useMemo } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { useId, useMemo } from "react";
+import { motion, AnimatePresence, LayoutGroup } from "motion/react";
 import { usePackageManager } from "@/hooks/use-package-manager";
 import type { PackageManager } from "@/lib/constants";
 import { PACKAGE_MANAGERS } from "@/lib/constants";
 import { CopyButton } from "@/components/docs/copy-button";
 import { cn } from "@/lib/utils";
 
-// Re-export from shared utility so existing imports still work
 export { convertNpmCommand } from "@/lib/convert-npm-command";
 export type { ConvertNpmCommandResult } from "@/lib/convert-npm-command";
 
@@ -48,6 +47,7 @@ export function CodeBlockCommand({
   npm,
   bun,
 }: CodeBlockCommandProps) {
+  const instanceId = useId();
   const [packageManager, setPackageManager] = usePackageManager();
 
   const tabs = useMemo(
@@ -63,71 +63,84 @@ export function CodeBlockCommand({
   const currentCommand = tabs[packageManager] || "";
 
   return (
-    <div className="relative overflow-hidden rounded-xl border border-border bg-code">
-      {/* Tab Bar */}
-      <div className="flex items-center gap-0 border-b border-border px-4">
-        <div className="mr-2 flex items-center text-muted-foreground">
-          {PM_ICONS[packageManager]}
-        </div>
-
-        <div className="relative flex items-center">
-          {PACKAGE_MANAGERS.map((pm) => {
-            const isActive = packageManager === pm;
-            return (
-              <button
-                key={pm}
-                onClick={() => setPackageManager(pm)}
-                className={cn(
-                  "relative px-2 py-2.5 font-mono text-xs transition-colors",
-                  isActive
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
-                )}
-              >
-                {pm}
-                {isActive && (
-                  <motion.div
-                    layoutId="pm-tab-indicator"
-                    className="absolute inset-x-0 bottom-0 h-0.5 bg-foreground"
-                    transition={{
-                      type: "spring",
-                      stiffness: 380,
-                      damping: 30,
-                    }}
-                  />
-                )}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Command Content */}
-      <div className="relative">
-        <AnimatePresence mode="wait">
-          <motion.pre
-            key={packageManager}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 10 }}
-            transition={{ duration: 0.15 }}
-            className="overflow-x-auto overscroll-x-contain p-4"
-          >
-            <code
-              data-language="bash"
-              className="font-mono text-sm leading-relaxed text-muted-foreground"
+    <LayoutGroup id={instanceId}>
+      <div className="relative overflow-hidden rounded-xl border border-border bg-code">
+        {/* Tab Bar */}
+        <div className="flex items-center gap-0 border-b border-border px-4">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={packageManager}
+              initial={{ opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85 }}
+              transition={{ duration: 0.12 }}
+              className="mr-2 flex items-center text-muted-foreground"
             >
-              <span className="select-none text-muted-foreground/50">$ </span>
-              {currentCommand}
-            </code>
-          </motion.pre>
-        </AnimatePresence>
+              {PM_ICONS[packageManager]}
+            </motion.div>
+          </AnimatePresence>
 
-        <CopyButton
-          className="absolute transform -translate-y-1/2 right-2 top-1/2"
-          text={currentCommand}
-        />
+          <div className="relative flex items-center">
+            {PACKAGE_MANAGERS.map((pm) => {
+              const isActive = packageManager === pm;
+              return (
+                <button
+                  key={pm}
+                  onClick={() => setPackageManager(pm)}
+                  className={cn(
+                    "relative px-2 py-2.5 font-mono text-xs transition-colors",
+                    isActive
+                      ? "text-foreground"
+                      : "text-muted-foreground hover:text-foreground",
+                  )}
+                >
+                  {pm}
+                  {isActive && (
+                    <motion.div
+                      layoutId="pm-indicator"
+                      className="absolute inset-x-0 bottom-0 h-0.5 bg-foreground"
+                      style={{ borderRadius: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 500,
+                        damping: 35,
+                        mass: 0.5,
+                      }}
+                    />
+                  )}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Command Content */}
+        <div className="relative">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.pre
+              key={packageManager}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.12, ease: "easeOut" }}
+              className="overflow-x-auto overscroll-x-contain p-4 pr-12"
+            >
+              <code
+                data-language="bash"
+                className="font-mono text-sm leading-relaxed text-muted-foreground"
+              >
+                <span className="select-none text-muted-foreground/50">$ </span>
+                {currentCommand}
+              </code>
+            </motion.pre>
+          </AnimatePresence>
+
+          <CopyButton
+            className="absolute right-2 top-1/2 -translate-y-1/2"
+            text={currentCommand}
+          />
+        </div>
       </div>
-    </div>
+    </LayoutGroup>
   );
 }
