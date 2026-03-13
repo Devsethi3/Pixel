@@ -49,7 +49,7 @@ export function Sidebar() {
   const nav = buildSidebarNav();
 
   return (
-    <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-64 shrink-0 overflow-y-auto border-r border-border py-6 pr-4 scrollbar-thin lg:block">
+    <aside className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-64 shrink-0 overflow-y-auto py-6 pr-4 scrollbar-thin lg:block">
       <nav className="space-y-6">
         {nav.map((category) => (
           <SidebarSection

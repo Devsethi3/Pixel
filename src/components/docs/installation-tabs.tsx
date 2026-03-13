@@ -38,9 +38,9 @@ export function InstallationTabs({
   const registryUrl = `${BASE_URL}/r/${shaderId}.json`;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full">
       {/* Tab Selector */}
-      <div className="flex items-center gap-1 rounded-lg bg-muted p-1">
+      <div className="flex items-center gap-1 rounded-lg bg-muted p-1 w-xs">
         {tabs.map((tab) => (
           <button
             key={tab.id}

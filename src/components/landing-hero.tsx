@@ -10,7 +10,15 @@ import { Button } from "@/components/ui/button";
 import { SITE_CONFIG } from "@/lib/constants";
 import { PixelHeading } from "./ui/pixel-heading-word";
 import { PixelParagraphInverse } from "./ui/pixel-paragraph-words-inverse";
-import { CodeBlockCommand } from "./docs/code-block-command";
+
+import {
+  Announcement,
+  AnnouncementTag,
+  AnnouncementTitle,
+} from "@/components/kibo-ui/announcement";
+import { ArrowUpRightIcon } from "lucide-react";
+import { TextureButton } from "./ui/texture-button";
+import { CodeBlockCommand } from "./ui/code-block-command";
 
 const DEFAULT_TEXT =
   "Production-ready shader components for React & Next.js. Copy and paste with shadcn CLI. Open source.";
@@ -68,26 +76,30 @@ export function LandingHero() {
       )}
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-6xl py-20 sm:px-2 sm:py-28">
+      <div className="relative z-10 mx-auto max-w-6xl py-20 px-2 sm:py-28">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-          className="space-y-6"
+          className="space-y-8"
         >
           {/* Badge */}
-          <motion.span
+          <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1, duration: 0.4 }}
-            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background/60 px-3 py-1 text-xs font-medium backdrop-blur-sm"
           >
-            <Terminal className="size-3" />
-            Open Source
-            <span className="hidden sm:inline text-muted-foreground">
-              | shadcn CLI Compatible
-            </span>
-          </motion.span>
+            <Announcement className="h-7">
+              <AnnouncementTag>Latest update</AnnouncementTag>
+              <AnnouncementTitle>
+                New feature added
+                <ArrowUpRightIcon
+                  className="shrink-0 text-muted-foreground"
+                  size={16}
+                />
+              </AnnouncementTitle>
+            </Announcement>
+          </motion.div>
 
           {/* Heading */}
           <motion.div
@@ -100,7 +112,6 @@ export function LandingHero() {
               <PixelHeading
                 initialFont="square"
                 hoverFont="circle"
-                className="text-6xl"
               >
                 Shaders Backgrounds
               </PixelHeading>
@@ -108,7 +119,6 @@ export function LandingHero() {
               <PixelHeading
                 initialFont="square"
                 hoverFont="circle"
-                className="text-6xl"
               >
                 Copy and Paste
               </PixelHeading>
@@ -116,7 +126,7 @@ export function LandingHero() {
           </motion.div>
 
           {/* Description */}
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
@@ -131,14 +141,14 @@ export function LandingHero() {
               className="max-w-xl text-lg leading-relaxed text-muted-foreground"
               plainWordClassName="text-foreground"
             />
-          </motion.p>
+          </motion.div>
 
-          <div className="w-full max-w-md">
+          <div className="w-full max-w-xl">
             <CodeBlockCommand
-              pnpm="pnpm dlx shadcn add @ncdai/code-block-command"
-              yarn="yarn shadcn add @ncdai/code-block-command"
-              npm="npx shadcn add @ncdai/code-block-command"
-              bun="bunx --bun shadcn add @ncdai/code-block-command"
+              pnpm="pnpm dlx shadcn add https://pixel.devsethi.site/r/ocean-wave.json"
+              yarn="yarn shadcn add https://pixel.devsethi.site/r/ocean-wave.json"
+              npm="npx shadcn add https://pixel.devsethi.site/r/ocean-wave.json"
+              bun="bunx --bun shadcn add https://pixel.devsethi.site/r/ocean-wave.json"
             />
           </div>
 
@@ -149,27 +159,27 @@ export function LandingHero() {
             transition={{ delay: 0.4, duration: 0.5 }}
             className="flex flex-wrap items-center gap-3 pt-2"
           >
-            <Button size="lg" asChild className="group">
-              <Link href="/docs" className="gap-2">
-                Get Started
+            <TextureButton asChild className="group">
+              <Link href="/docs" className="gap-2 flex items-center">
+                <span>Get Started</span>
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </Link>
-            </Button>
-            <Button variant="secondary" size="lg" asChild>
-              <a
+            </TextureButton>
+            <TextureButton variant="accent" asChild>
+              <Link
                 href={SITE_CONFIG.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="gap-2"
+                className="gap-2 flex items-center"
               >
                 <Github className="size-4" />
                 GitHub
-              </a>
-            </Button>
+              </Link>
+            </TextureButton>
           </motion.div>
 
           {/* Stats */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.5 }}
@@ -180,7 +190,7 @@ export function LandingHero() {
             <span>4 categories</span>
             <span className="text-border">·</span>
             <span>shadcn CLI ready</span>
-          </motion.div>
+          </motion.div> */}
         </motion.div>
       </div>
     </section>

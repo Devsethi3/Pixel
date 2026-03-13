@@ -123,7 +123,10 @@ export function CodeBlockCommand({
           </motion.pre>
         </AnimatePresence>
 
-        <CopyButton className="absolute right-2 top-2" text={currentCommand} />
+        <CopyButton
+          className="absolute transform -translate-y-1/2 right-2 top-1/2"
+          text={currentCommand}
+        />
       </div>
     </div>
   );

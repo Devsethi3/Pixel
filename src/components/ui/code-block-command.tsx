@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { TerminalSquareIcon } from "lucide-react"
-import { useMemo } from "react"
+import { TerminalSquareIcon } from "lucide-react";
+import { useMemo } from "react";
 
 import {
   Tabs,
@@ -9,12 +9,12 @@ import {
   TabsIndicator,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs"
+} from "@/components/ui/tabs";
 import {
   type PackageManager,
   usePackageManager,
-} from "@/hooks/use-package-manager"
-import { CopyButton } from "@/components/ui/copy-button"
+} from "@/hooks/use-package-manager";
+import { CopyButton } from "./copy-button";
 
 /**
  * Props for the CodeBlockCommand component.
@@ -23,22 +23,22 @@ export type CodeBlockCommandProps = {
   /**
    * Command to execute with pnpm package manager.
    */
-  pnpm?: string
+  pnpm?: string;
 
   /**
    * Command to execute with yarn package manager.
    */
-  yarn?: string
+  yarn?: string;
 
   /**
    * Command to execute with npm package manager.
    */
-  npm?: string
+  npm?: string;
 
   /**
    * Command to execute with bun package manager.
    */
-  bun?: string
+  bun?: string;
 
   /**
    * Callback invoked when a command is successfully copied to clipboard.
@@ -61,9 +61,9 @@ export type CodeBlockCommandProps = {
    * ```
    */
   onCopySuccess?: (data: {
-    packageManager: PackageManager
-    command: string
-  }) => void
+    packageManager: PackageManager;
+    command: string;
+  }) => void;
 
   /**
    * Callback invoked when copying to clipboard fails.
@@ -82,8 +82,8 @@ export type CodeBlockCommandProps = {
    * />
    * ```
    */
-  onCopyError?: (error: Error) => void
-}
+  onCopyError?: (error: Error) => void;
+};
 
 export function CodeBlockCommand({
   pnpm,
@@ -93,7 +93,7 @@ export function CodeBlockCommand({
   onCopySuccess,
   onCopyError,
 }: CodeBlockCommandProps) {
-  const [packageManager, setPackageManager] = usePackageManager()
+  const [packageManager, setPackageManager] = usePackageManager();
 
   const tabs = useMemo(() => {
     return {
@@ -101,8 +101,8 @@ export function CodeBlockCommand({
       yarn: yarn,
       npm: npm,
       bun: bun,
-    }
-  }, [pnpm, yarn, npm, bun])
+    };
+  }, [pnpm, yarn, npm, bun]);
 
   return (
     <div className="relative overflow-hidden rounded-xl bg-code">
@@ -110,7 +110,7 @@ export function CodeBlockCommand({
         className="gap-0"
         value={packageManager}
         onValueChange={(value) => {
-          setPackageManager(value as PackageManager)
+          setPackageManager(value as PackageManager);
         }}
       >
         <div className="px-4 shadow-[inset_0_-1px_0_0] shadow-border">
@@ -126,7 +126,7 @@ export function CodeBlockCommand({
                 >
                   {key}
                 </TabsTrigger>
-              )
+              );
             })}
 
             <TabsIndicator className="h-0.5 translate-y-0 rounded-none bg-foreground shadow-none dark:bg-foreground" />
@@ -136,7 +136,7 @@ export function CodeBlockCommand({
         {Object.entries(tabs).map(([key, value]) => {
           return (
             <TabsContent key={key} value={key}>
-              <pre className="overflow-x-auto overscroll-x-contain p-4">
+              <pre className="overflow-x-auto overscroll-x-contain scroll-fade-effect-x p-4">
                 <code
                   data-slot="code-block"
                   data-language="bash"
@@ -147,7 +147,7 @@ export function CodeBlockCommand({
                 </code>
               </pre>
             </TabsContent>
-          )
+          );
         })}
       </Tabs>
 
@@ -160,12 +160,12 @@ export function CodeBlockCommand({
           onCopySuccess?.({
             packageManager,
             command: copiedCommand,
-          })
+          });
         }}
         onCopyError={onCopyError}
       />
     </div>
-  )
+  );
 }
 
 function getIconForPackageManager(manager: PackageManager) {
@@ -178,7 +178,7 @@ function getIconForPackageManager(manager: PackageManager) {
             fill="currentColor"
           />
         </svg>
-      )
+      );
     case "yarn":
       return (
         <svg viewBox="0 0 24 24">
@@ -187,7 +187,7 @@ function getIconForPackageManager(manager: PackageManager) {
             fill="currentColor"
           />
         </svg>
-      )
+      );
     case "npm":
       return (
         <svg viewBox="0 0 24 24">
@@ -196,7 +196,7 @@ function getIconForPackageManager(manager: PackageManager) {
             fill="currentColor"
           />
         </svg>
-      )
+      );
     case "bun":
       return (
         <svg viewBox="0 0 24 24">
@@ -205,9 +205,9 @@ function getIconForPackageManager(manager: PackageManager) {
             fill="currentColor"
           />
         </svg>
-      )
+      );
     default:
-      return <TerminalSquareIcon />
+      return <TerminalSquareIcon />;
   }
 }
 
@@ -218,23 +218,23 @@ export type ConvertNpmCommandResult = {
   /**
    * Command for pnpm package manager.
    */
-  pnpm: string
+  pnpm: string;
 
   /**
    * Command for yarn package manager.
    */
-  yarn: string
+  yarn: string;
 
   /**
    * Command for npm package manager.
    */
-  npm: string
+  npm: string;
 
   /**
    * Command for bun package manager.
    */
-  bun: string
-}
+  bun: string;
+};
 
 /**
  * Converts a standard npm command into equivalent commands for pnpm, yarn, npm,
@@ -267,7 +267,7 @@ export function convertNpmCommand(npmCommand: string): ConvertNpmCommandResult {
       yarn: npmCommand.replaceAll("npm install", "yarn add"),
       npm: npmCommand,
       bun: npmCommand.replaceAll("npm install", "bun add"),
-    }
+    };
   }
 
   // npx create- (must be checked before generic npx)
@@ -277,7 +277,7 @@ export function convertNpmCommand(npmCommand: string): ConvertNpmCommandResult {
       yarn: npmCommand.replace("npx create-", "yarn create "),
       npm: npmCommand,
       bun: npmCommand.replace("npx", "bunx --bun"),
-    }
+    };
   }
 
   // npm create
@@ -287,7 +287,7 @@ export function convertNpmCommand(npmCommand: string): ConvertNpmCommandResult {
       yarn: npmCommand.replace("npm create", "yarn create"),
       npm: npmCommand,
       bun: npmCommand.replace("npm create", "bun create"),
-    }
+    };
   }
 
   // npx (general)
@@ -297,7 +297,7 @@ export function convertNpmCommand(npmCommand: string): ConvertNpmCommandResult {
       yarn: npmCommand.replace("npx", "yarn"),
       npm: npmCommand,
       bun: npmCommand.replace("npx", "bunx --bun"),
-    }
+    };
   }
 
   // npm run
@@ -307,7 +307,7 @@ export function convertNpmCommand(npmCommand: string): ConvertNpmCommandResult {
       yarn: npmCommand.replace("npm run", "yarn"),
       npm: npmCommand,
       bun: npmCommand.replace("npm run", "bun"),
-    }
+    };
   }
 
   return {
@@ -315,5 +315,5 @@ export function convertNpmCommand(npmCommand: string): ConvertNpmCommandResult {
     yarn: npmCommand,
     npm: npmCommand,
     bun: npmCommand,
-  }
+  };
 }

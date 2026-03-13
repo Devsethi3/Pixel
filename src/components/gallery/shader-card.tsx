@@ -52,7 +52,6 @@ export function ShaderCard({ shader }: ShaderCardProps) {
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         whileHover={{
-          y: -2,
           boxShadow: "0 8px 30px rgba(0,0,0,0.08)",
         }}
         transition={{ duration: 0.2 }}
@@ -69,9 +68,10 @@ export function ShaderCard({ shader }: ShaderCardProps) {
             >
               <ShaderComponent className="h-full w-full">
                 <div className="flex h-full items-center justify-center p-6">
-                  <span className="text-lg font-semibold text-white drop-shadow-lg">
+                  {/* <span className="text-lg font-semibold text-white drop-shadow-lg">
                     {shader.name}
-                  </span>
+                    hulap
+                  </span> */}
                 </div>
               </ShaderComponent>
             </Suspense>

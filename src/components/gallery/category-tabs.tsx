@@ -29,7 +29,7 @@ export function CategoryTabs({
   const favoritesCount = useFavoritesStore((s) => s.favorites.length);
 
   return (
-    <div className="overflow-x-auto scrollbar-thin">
+    <div className="overflow-x-auto lg:overflow-hidden scrollbar-thin">
       <div className="flex items-center gap-1 pb-1">
         {CATEGORIES.map((category) => {
           const isActive = activeCategory === category.id;

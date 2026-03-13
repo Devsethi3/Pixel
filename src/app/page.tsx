@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <>
       <LandingHero />
-      <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+      <section className="mx-auto max-w-6xl px-2 py-12">
         <Suspense fallback={<GridSkeleton />}>
           <ShaderGrid />
         </Suspense>
