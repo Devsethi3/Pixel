@@ -5,6 +5,7 @@ import {
   InstallUsageCodeBlock,
   InstallStructureCodeBlock,
 } from "@/components/docs/install-code-blocks";
+import { ChevronRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Installation",
@@ -13,12 +14,19 @@ export const metadata: Metadata = {
 
 export default function InstallationPage() {
   return (
-    <div className="max-w-3xl space-y-10 py-16">
+    <div className="max-w-3xl space-y-10 py-14">
       <div className="space-y-4">
-        <h2 className="scroll-m-20 text-2xl font-medium tracking-tight text-foreground lg:text-3xl">
+        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+          <span className="hover:text-foreground transition-colors cursor-pointer">
+            Documentation
+          </span>
+          <ChevronRight className="size-3.5" />
+          <span className="font-medium text-foreground">Installation</span>
+        </div>
+        <h2 className="scroll-m-20 text-3xl font-medium tracking-tight text-foreground">
           Installation
         </h2>
-        <p className="text-base text-muted-foreground leading-8">
+        <p className="text-xl text-muted-foreground leading-8">
           There are two ways to install Pixel shader components: using the
           shadcn CLI (recommended) or manual installation.
         </p>
@@ -26,7 +34,6 @@ export default function InstallationPage() {
 
       <hr className="border-border/60" />
 
-      {/* Method 1 */}
       <section className="space-y-4">
         <h3 className="scroll-m-20 text-xl font-medium tracking-tight">
           Method 1: shadcn CLI (Recommended)
@@ -57,56 +64,52 @@ export default function InstallationPage() {
 
       <hr className="border-border/60" />
 
-      {/* Method 2 */}
       <section className="space-y-8">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        <h3 className="scroll-m-20 text-xl font-medium tracking-tight">
           Method 2: Manual Installation
-        </h2>
+        </h3>
 
-        <div className="space-y-6">
-          <div className="space-y-3">
-            <h3 className="font-semibold text-foreground text-lg">
-              1. Install dependencies
-            </h3>
-            <p className="text-muted-foreground leading-7">
-              All shader components require the Paper Design shaders library:
-            </p>
-            <div className="rounded-xl overflow-hidden border bg-zinc-950 dark:bg-zinc-900 shadow-sm">
-              <CodeBlockCommand
-                {...convertNpmCommand(
-                  "npm install @paper-design/shaders-react",
-                )}
-              />
-            </div>
-          </div>
+        <div className="relative">
+          <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
 
-          <div className="space-y-3">
-            <h3 className="font-semibold text-foreground text-lg">
-              2. Copy the component
-            </h3>
-            <p className="text-muted-foreground leading-7">
-              Browse the{" "}
-              <a
-                href="/docs"
-                className="font-medium underline underline-offset-4 hover:text-primary"
-              >
-                shader documentation
-              </a>{" "}
-              and copy the component code into your project. Each shader doc
-              includes a full copy-paste component.
-            </p>
-          </div>
+          <div className="space-y-14">
+            <TimelineStep number="1" title="Install dependencies">
+              <p className="text-muted-foreground leading-7">
+                All shader components require the Paper Design shaders library.
+                Install it using your package manager:
+              </p>
+              <div className="mt-4 rounded-xl overflow-hidden border bg-zinc-950 dark:bg-zinc-900 shadow-sm">
+                <CodeBlockCommand
+                  {...convertNpmCommand(
+                    "npm install @paper-design/shaders-react",
+                  )}
+                />
+              </div>
+            </TimelineStep>
 
-          <div className="space-y-3">
-            <h3 className="font-semibold text-foreground text-lg">
-              3. Import and use
-            </h3>
-            <p className="text-muted-foreground leading-7">
-              Import the component and wrap your content with it:
-            </p>
-            <div className="rounded-xl overflow-hidden border bg-zinc-950 dark:bg-zinc-900 shadow-sm">
-              <InstallUsageCodeBlock />
-            </div>
+            <TimelineStep number="2" title="Copy the component">
+              <p className="text-muted-foreground leading-7">
+                Browse the{" "}
+                <a
+                  href="/docs"
+                  className="font-medium underline underline-offset-4 hover:text-primary"
+                >
+                  shader documentation
+                </a>{" "}
+                and copy the component code into your project. Each shader doc
+                includes a full copy-paste component.
+              </p>
+            </TimelineStep>
+
+            <TimelineStep number="3" title="Import and use">
+              <p className="text-muted-foreground leading-7">
+                Import the component and wrap your content with it. It will fill
+                the parent container by default.
+              </p>
+              <div className="mt-4 rounded-xl overflow-hidden border bg-zinc-950 dark:bg-zinc-900 shadow-sm">
+                <InstallUsageCodeBlock />
+              </div>
+            </TimelineStep>
           </div>
         </div>
       </section>
@@ -114,7 +117,7 @@ export default function InstallationPage() {
       <hr className="border-border/60" />
 
       <section className="space-y-6">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        <h2 className="scroll-m-20 text-xl font-medium tracking-tight">
           Project Structure
         </h2>
         <p className="text-muted-foreground leading-7">
@@ -126,6 +129,31 @@ export default function InstallationPage() {
           <InstallStructureCodeBlock />
         </div>
       </section>
+    </div>
+  );
+}
+
+function TimelineStep({
+  number,
+  title,
+  children,
+}: {
+  number: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="relative pl-14">
+      <div className="absolute left-0 top-0 flex size-8 items-center justify-center rounded-full border bg-background text-sm font-semibold shadow-sm ring-4 ring-background z-10">
+        {number}
+      </div>
+
+      <div className="space-y-3">
+        <h3 className="text-lg font-medium tracking-tight text-foreground">
+          {title}
+        </h3>
+        <div className="text-base">{children}</div>
+      </div>
     </div>
   );
 }

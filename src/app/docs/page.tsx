@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function DocsPage() {
   return (
-    <div className="max-w-3xl space-y-10 py-16">
+    <div className="max-w-3xl space-y-10 py-14">
       <div className="space-y-4">
         <div className="flex items-center space-x-2 text-sm text-muted-foreground">
           <span className="hover:text-foreground transition-colors cursor-pointer">
