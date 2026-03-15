@@ -26,7 +26,7 @@ export function ShaderDocContent({ shader }: ShaderDocContentProps) {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="max-w-3xl space-y-10"
+      className="max-w-3xl py-14 space-y-10"
     >
       {/* Header */}
       <div className="space-y-4">

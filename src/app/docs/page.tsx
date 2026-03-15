@@ -52,7 +52,7 @@ export default function DocsPage() {
       </div>
 
       <div className="space-y-8 pt-6">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        <h2 className="scroll-m-20 text-2xl font-medium tracking-tight">
           Installation
         </h2>
 
@@ -90,9 +90,9 @@ export default function DocsPage() {
       </div>
 
       <div className="space-y-6 pt-10">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        <h3 className="scroll-m-20 text-xl font-medium tracking-tight">
           What's Next?
-        </h2>
+        </h3>
         <div className="grid gap-4 md:grid-cols-2">
           <Link
             href="/"
@@ -100,7 +100,6 @@ export default function DocsPage() {
           >
             <div className="space-y-2">
               <div className="flex items-center gap-2 font-medium text-foreground">
-                <Palette className="size-4" />
                 Browse Gallery
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
@@ -116,7 +115,6 @@ export default function DocsPage() {
           >
             <div className="space-y-2">
               <div className="flex items-center gap-2 font-medium text-foreground">
-                <Terminal className="size-4" />
                 Customization
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">

@@ -12,7 +12,7 @@ export default function HomePage() {
           <ShaderGrid />
         </Suspense>
       </section>
-      <TerminalProcess />
+      {/* <TerminalProcess /> */}
     </>
   );
 }
