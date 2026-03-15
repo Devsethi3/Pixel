@@ -1,4 +1,3 @@
-// app/docs/installation/page.tsx
 import type { Metadata } from "next";
 import { CodeBlockCommand } from "@/components/docs/code-block-command";
 import { convertNpmCommand } from "@/lib/convert-npm-command";
@@ -14,12 +13,12 @@ export const metadata: Metadata = {
 
 export default function InstallationPage() {
   return (
-    <div className="max-w-3xl space-y-10 pb-16">
+    <div className="max-w-3xl space-y-10 py-16">
       <div className="space-y-4">
-        <h1 className="scroll-m-20 text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
+        <h2 className="scroll-m-20 text-2xl font-medium tracking-tight text-foreground lg:text-3xl">
           Installation
-        </h1>
-        <p className="text-xl text-muted-foreground leading-8">
+        </h2>
+        <p className="text-base text-muted-foreground leading-8">
           There are two ways to install Pixel shader components: using the
           shadcn CLI (recommended) or manual installation.
         </p>
@@ -28,10 +27,10 @@ export default function InstallationPage() {
       <hr className="border-border/60" />
 
       {/* Method 1 */}
-      <section className="space-y-6">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+      <section className="space-y-4">
+        <h3 className="scroll-m-20 text-xl font-medium tracking-tight">
           Method 1: shadcn CLI (Recommended)
-        </h2>
+        </h3>
         <p className="text-muted-foreground leading-7">
           The easiest way to add a shader component is using the shadcn CLI.
           This handles dependencies and places the component in your project
