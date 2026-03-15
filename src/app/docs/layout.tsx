@@ -1,3 +1,4 @@
+// app/docs/layout.tsx
 import { Sidebar } from "@/components/layout/sidebar";
 import { MobileDocNav } from "@/components/layout/mobile-nav";
 
@@ -7,11 +8,20 @@ export default function DocsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="mx-auto flex max-w-6xl mt-20 px-2">
-      <Sidebar />
-      <div className="min-w-0 flex-1 py-8 lg:pl-8">
-        <MobileDocNav />
-        {children}
+    <div className="relative">
+      <div className="mx-auto w-full max-w-6xl px-4 lg:px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[240px_minmax(0,1fr)] gap-10">
+          {/* Sidebar */}
+          <aside className="hidden lg:block">
+            <Sidebar />
+          </aside>
+
+          {/* Content */}
+          <main className="min-w-0 py-10">
+            <MobileDocNav />
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   );

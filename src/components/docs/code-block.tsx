@@ -1,6 +1,8 @@
+
 "use client";
 
-import { CopyButton } from "@/components/docs/copy-button";
+import { CopyButton } from "./copy-button";
+
 
 interface CodeBlockProps {
   code: string;

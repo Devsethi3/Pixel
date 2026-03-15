@@ -1,7 +1,11 @@
+// app/docs/installation/page.tsx
 import type { Metadata } from "next";
 import { CodeBlockCommand } from "@/components/docs/code-block-command";
-import { CodeBlock } from "@/components/docs/code-block";
 import { convertNpmCommand } from "@/lib/convert-npm-command";
+import {
+  InstallUsageCodeBlock,
+  InstallStructureCodeBlock,
+} from "@/components/docs/install-code-blocks";
 
 export const metadata: Metadata = {
   title: "Installation",
@@ -10,95 +14,119 @@ export const metadata: Metadata = {
 
 export default function InstallationPage() {
   return (
-    <article className="prose prose-neutral dark:prose-invert max-w-3xl">
-      <h1 className="text-3xl font-bold tracking-tight">Installation</h1>
-      <p className="lead text-lg text-muted-foreground">
-        There are two ways to install Pixel shader components: using the shadcn
-        CLI (recommended) or manual installation.
-      </p>
-
-      <hr className="my-8" />
-
-      <h2>Method 1: shadcn CLI (Recommended)</h2>
-      <p>
-        The easiest way to add a shader component is using the shadcn CLI. This
-        handles dependencies and places the component in your project
-        automatically.
-      </p>
-
-      <div className="not-prose my-6">
-        <CodeBlockCommand
-          {...convertNpmCommand(
-            "npx shadcn add https://pixel.devsethi.site/r/ocean-wave.json",
-          )}
-        />
+    <div className="max-w-3xl space-y-10 pb-16">
+      <div className="space-y-4">
+        <h1 className="scroll-m-20 text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
+          Installation
+        </h1>
+        <p className="text-xl text-muted-foreground leading-8">
+          There are two ways to install Pixel shader components: using the
+          shadcn CLI (recommended) or manual installation.
+        </p>
       </div>
 
-      <p>
-        This will install the required dependencies and create the component
-        file at <code>components/shaders/ocean-wave.tsx</code>.
-      </p>
+      <hr className="border-border/60" />
 
-      <hr className="my-8" />
+      {/* Method 1 */}
+      <section className="space-y-6">
+        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Method 1: shadcn CLI (Recommended)
+        </h2>
+        <p className="text-muted-foreground leading-7">
+          The easiest way to add a shader component is using the shadcn CLI.
+          This handles dependencies and places the component in your project
+          automatically.
+        </p>
 
-      <h2>Method 2: Manual Installation</h2>
+        <div className="rounded-xl overflow-hidden border bg-zinc-950 dark:bg-zinc-900 shadow-sm">
+          <CodeBlockCommand
+            {...convertNpmCommand(
+              "npx shadcn add https://pixel.devsethi.site/r/ocean-wave.json",
+            )}
+          />
+        </div>
 
-      <h3>Step 1: Install dependencies</h3>
-      <p>All shader components require the Paper Design shaders library:</p>
+        <p className="text-sm text-muted-foreground bg-muted/50 p-4 rounded-lg border">
+          This will install the required dependencies and create the component
+          file at{" "}
+          <code className="font-semibold text-foreground">
+            components/shaders/ocean-wave.tsx
+          </code>
+          .
+        </p>
+      </section>
 
-      <div className="not-prose my-6">
-        <CodeBlockCommand
-          {...convertNpmCommand("npm install @paper-design/shaders-react")}
-        />
-      </div>
+      <hr className="border-border/60" />
 
-      <h3>Step 2: Copy the component</h3>
-      <p>
-        Browse the <a href="/docs">shader documentation</a> and copy the
-        component code into your project. Each shader doc includes a full
-        copy-paste component.
-      </p>
+      {/* Method 2 */}
+      <section className="space-y-8">
+        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Method 2: Manual Installation
+        </h2>
 
-      <h3>Step 3: Import and use</h3>
-      <p>Import the component and wrap your content with it:</p>
+        <div className="space-y-6">
+          <div className="space-y-3">
+            <h3 className="font-semibold text-foreground text-lg">
+              1. Install dependencies
+            </h3>
+            <p className="text-muted-foreground leading-7">
+              All shader components require the Paper Design shaders library:
+            </p>
+            <div className="rounded-xl overflow-hidden border bg-zinc-950 dark:bg-zinc-900 shadow-sm">
+              <CodeBlockCommand
+                {...convertNpmCommand(
+                  "npm install @paper-design/shaders-react",
+                )}
+              />
+            </div>
+          </div>
 
-      <div className="not-prose my-6">
-        <CodeBlock
-          code={`import OceanWave from "@/components/shaders/ocean-wave"
+          <div className="space-y-3">
+            <h3 className="font-semibold text-foreground text-lg">
+              2. Copy the component
+            </h3>
+            <p className="text-muted-foreground leading-7">
+              Browse the{" "}
+              <a
+                href="/docs"
+                className="font-medium underline underline-offset-4 hover:text-primary"
+              >
+                shader documentation
+              </a>{" "}
+              and copy the component code into your project. Each shader doc
+              includes a full copy-paste component.
+            </p>
+          </div>
 
-export default function Page() {
-  return (
-    <OceanWave className="min-h-screen">
-      <YourContent />
-    </OceanWave>
-  )
-}`}
-          language="tsx"
-        />
-      </div>
+          <div className="space-y-3">
+            <h3 className="font-semibold text-foreground text-lg">
+              3. Import and use
+            </h3>
+            <p className="text-muted-foreground leading-7">
+              Import the component and wrap your content with it:
+            </p>
+            <div className="rounded-xl overflow-hidden border bg-zinc-950 dark:bg-zinc-900 shadow-sm">
+              <InstallUsageCodeBlock />
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <hr className="my-8" />
+      <hr className="border-border/60" />
 
-      <h2>Project Structure</h2>
-      <p>
-        After installation, your project will include shader components in the
-        following structure:
-      </p>
+      <section className="space-y-6">
+        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Project Structure
+        </h2>
+        <p className="text-muted-foreground leading-7">
+          After installation, your project will include shader components in the
+          following structure:
+        </p>
 
-      <div className="not-prose my-6">
-        <CodeBlock
-          code={`your-project/
-├── components/
-│   └── shaders/
-│       ├── ocean-wave.tsx
-│       ├── sunset-glow.tsx
-│       └── ...
-├── package.json
-└── ...`}
-          language="bash"
-          filename="Project Structure"
-        />
-      </div>
-    </article>
+        <div className="rounded-xl overflow-hidden border bg-zinc-950 dark:bg-zinc-900 shadow-sm">
+          <InstallStructureCodeBlock />
+        </div>
+      </section>
+    </div>
   );
 }

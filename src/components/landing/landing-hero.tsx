@@ -2,14 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
-import { ArrowRight, Github, Terminal } from "lucide-react";
-import Link from "next/link";
 import { GrainGradient } from "@paper-design/shaders-react";
 
-import { Button } from "@/components/ui/button";
-import { SITE_CONFIG } from "@/lib/constants";
-import { PixelHeading } from "./ui/pixel-heading-word";
-import { PixelParagraphInverse } from "./ui/pixel-paragraph-words-inverse";
+import { PixelHeading } from "../ui/pixel-heading-word";
+import { PixelParagraphInverse } from "../ui/pixel-paragraph-words-inverse";
 
 import {
   Announcement,
@@ -17,8 +13,8 @@ import {
   AnnouncementTitle,
 } from "@/components/kibo-ui/announcement";
 import { ArrowUpRightIcon } from "lucide-react";
-import { TextureButton } from "./ui/texture-button";
-import { CodeBlockCommand } from "./ui/code-block-command";
+import { CodeBlockCommand } from "../ui/code-block-command";
+import HeroActions from "./hero-actions";
 
 const DEFAULT_TEXT =
   "Production-ready shader components for React & Next.js. Copy and paste with shadcn CLI. Open source.";
@@ -53,16 +49,16 @@ export function LandingHero() {
       {/* Shader Background */}
       {ready && (
         <GrainGradient
-          colors={["#9F8EEC", "#6696EA", "#3F7CFF"]}
+          colors={["#00FF88", "#7B2FFF", "#00BBFF"]}
           colorBack="#00000000"
-          speed={0.17}
-          scale={0.57}
-          rotation={-143}
-          offsetX={0.2}
-          offsetY={-0.27}
-          softness={0.67}
-          intensity={0.16}
-          noise={0.21}
+          speed={0.1}
+          scale={0.65}
+          rotation={-90}
+          offsetX={0.15}
+          offsetY={0.1}
+          softness={0.6}
+          intensity={0.22}
+          noise={0.24}
           shape="wave"
           style={{
             position: "absolute",
@@ -146,45 +142,7 @@ export function LandingHero() {
             />
           </div>
 
-          {/* Actions */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="flex flex-wrap items-center gap-3 pt-2"
-          >
-            <TextureButton asChild className="group">
-              <Link href="/docs" className="gap-2 flex items-center">
-                <span>Get Started</span>
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-            </TextureButton>
-            <TextureButton variant="accent" asChild>
-              <Link
-                href={SITE_CONFIG.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="gap-2 flex items-center"
-              >
-                <Github className="size-4" />
-                GitHub
-              </Link>
-            </TextureButton>
-          </motion.div>
-
-          {/* Stats */}
-          {/* <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="flex items-center gap-4 pt-4 text-xs text-muted-foreground"
-          >
-            <span>10 shaders</span>
-            <span className="text-border">·</span>
-            <span>4 categories</span>
-            <span className="text-border">·</span>
-            <span>shadcn CLI ready</span>
-          </motion.div> */}
+          <HeroActions />
         </motion.div>
       </div>
     </section>

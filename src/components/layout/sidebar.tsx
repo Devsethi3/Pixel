@@ -2,37 +2,38 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence, LayoutGroup } from "motion/react";
-import { ChevronRight } from "lucide-react";
-import { useState, useCallback, useMemo } from "react";
+import { useMemo } from "react";
+import { motion } from "motion/react";
 
 import { cn } from "@/lib/utils";
 import { SHADERS_CONFIG } from "@/lib/shaders-config";
 import { CATEGORIES } from "@/lib/constants";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface SidebarLink {
   title: string;
   href: string;
 }
 
-interface SidebarCategory {
-  title: string;
+interface SidebarGroupData {
+  id: string;
   links: SidebarLink[];
 }
 
-function buildSidebarNav(): SidebarCategory[] {
-  const gettingStarted: SidebarCategory = {
-    title: "Getting Started",
+function buildSidebarNav(): SidebarGroupData[] {
+  const gettingStarted: SidebarGroupData = {
+    id: "getting-started",
     links: [
       { title: "Introduction", href: "/docs" },
       { title: "Installation", href: "/docs/installation" },
+      { title: "Customization", href: "/docs/customization" },
     ],
   };
 
-  const categoryGroups = CATEGORIES.filter(
+  const shaderGroups = CATEGORIES.filter(
     (c) => c.id !== "all" && c.id !== "favorites",
   ).map((cat) => ({
-    title: cat.label,
+    id: cat.id,
     links: SHADERS_CONFIG.filter((s) => s.category === cat.id).map(
       (shader) => ({
         title: shader.name,
@@ -41,10 +42,8 @@ function buildSidebarNav(): SidebarCategory[] {
     ),
   }));
 
-  return [gettingStarted, ...categoryGroups.filter((g) => g.links.length > 0)];
+  return [gettingStarted, ...shaderGroups.filter((g) => g.links.length > 0)];
 }
-
-// ─── Sidebar Link Item ─────────────────────────────────────────────────────
 
 function SidebarItem({
   link,
@@ -56,164 +55,77 @@ function SidebarItem({
   onClick?: () => void;
 }) {
   return (
-    <li>
-      <Link
-        href={link.href}
-        onClick={onClick}
-        className={cn(
-          "group relative flex items-center rounded-md px-2.5 py-1.5 text-[13px] transition-colors duration-150",
-          isActive
-            ? "text-foreground font-medium"
-            : "text-muted-foreground hover:text-foreground",
-        )}
-      >
-        {/* Active indicator bar */}
-        {isActive && (
-          <motion.div
-            layoutId="sidebar-indicator"
-            className="absolute inset-y-1 left-0 w-[2px] rounded-full bg-foreground"
-            transition={{
-              type: "spring",
-              stiffness: 500,
-              damping: 35,
-              mass: 0.5,
-            }}
-          />
-        )}
+    <Link
+      href={link.href}
+      onClick={onClick}
+      className={cn(
+        "group relative flex w-full items-center rounded-md px-3 py-1.5 text-sm transition-colors",
+        isActive
+          ? "font-medium text-foreground"
+          : "text-muted-foreground hover:text-foreground",
+      )}
+    >
+      {isActive && (
+        <motion.div
+          layoutId="sidebar-active-bg"
+          className="absolute inset-0 rounded-md bg-muted/60"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        />
+      )}
 
-        {/* Active background */}
-        {isActive && (
-          <motion.div
-            layoutId="sidebar-active-bg"
-            className="absolute inset-0 rounded-md bg-muted/60"
-            transition={{
-              type: "spring",
-              stiffness: 500,
-              damping: 35,
-              mass: 0.5,
-            }}
-          />
-        )}
-
-        <span className="relative z-10">{link.title}</span>
-      </Link>
-    </li>
+      <span className="relative z-10">{link.title}</span>
+    </Link>
   );
 }
 
-// ─── Collapsible Section ────────────────────────────────────────────────────
-
-function SidebarSection({
-  category,
-  pathname,
-  defaultOpen = true,
-  onLinkClick,
-}: {
-  category: SidebarCategory;
-  pathname: string;
-  defaultOpen?: boolean;
-  onLinkClick?: () => void;
-}) {
-  const hasActiveLink = category.links.some((link) => pathname === link.href);
-  const [isOpen, setIsOpen] = useState(defaultOpen || hasActiveLink);
-
-  const toggle = useCallback(() => setIsOpen((prev) => !prev), []);
+function SidebarNav({ onLinkClick }: { onLinkClick?: () => void }) {
+  const pathname = usePathname();
+  const groups = useMemo(() => buildSidebarNav(), []);
 
   return (
-    <div>
-      <button
-        onClick={toggle}
-        className={cn(
-          "group flex w-full items-center gap-1 py-1 text-[13px] font-medium transition-colors duration-150",
-          "text-muted-foreground hover:text-foreground",
-        )}
-      >
-        <motion.div
-          animate={{ rotate: isOpen ? 90 : 0 }}
-          transition={{ type: "spring", stiffness: 500, damping: 35 }}
-          className="flex items-center justify-center"
-        >
-          <ChevronRight className="size-3 text-muted-foreground/60" />
-        </motion.div>
-        <span>{category.title}</span>
-      </button>
+    <div className="flex flex-col pb-8">
+      {groups.map((group, groupIndex) => (
+        <div key={group.id} className="relative">
+          {groupIndex > 0 && (
+            <div className="my-4 mx-3 h-px bg-border/40" role="none" />
+          )}
 
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{
-              height: {
-                type: "spring",
-                stiffness: 500,
-                damping: 40,
-                mass: 0.5,
-              },
-              opacity: { duration: 0.15, ease: "easeOut" },
-            }}
-            className="overflow-hidden"
-          >
-            <ul className="ml-1 border-l border-border/50 py-1 pl-2 space-y-0.5">
-              {category.links.map((link) => (
-                <SidebarItem
-                  key={link.href}
-                  link={link}
-                  isActive={pathname === link.href}
-                  onClick={onLinkClick}
-                />
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          <div className="flex flex-col space-y-0.5">
+            {group.links.map((link) => (
+              <SidebarItem
+                key={link.href}
+                link={link}
+                isActive={pathname === link.href}
+                onClick={onLinkClick}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
 
-// ─── Sidebar Navigation ─────────────────────────────────────────────────────
-
-function SidebarNav({ onLinkClick }: { onLinkClick?: () => void }) {
-  const pathname = usePathname();
-  const nav = useMemo(() => buildSidebarNav(), []);
-
-  return (
-    <LayoutGroup>
-      <nav className="space-y-4">
-        {nav.map((category) => (
-          <SidebarSection
-            key={category.title}
-            category={category}
-            pathname={pathname}
-            onLinkClick={onLinkClick}
-          />
-        ))}
-      </nav>
-    </LayoutGroup>
-  );
-}
-
-// ─── Desktop Sidebar ────────────────────────────────────────────────────────
-
 export function Sidebar() {
   return (
-    <aside className="sticky top-20 hidden h-[calc(100vh-5rem)] w-56 shrink-0 lg:block">
-      <div className="h-full overflow-y-auto overflow-x-hidden py-6 pr-4 scrollbar-thin">
+    <aside className="fixed top-14 z-30 -ml-2 hidden h-[calc(100vh-3.5rem)] w-full shrink-0 md:sticky md:block">
+      <ScrollArea className="h-full py-6 pr-6 lg:py-8">
         <SidebarNav />
-      </div>
-
-      {/* Fade-out gradient at bottom */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-4 h-8 bg-gradient-to-t from-background to-transparent" />
+      </ScrollArea>
+      <div
+        className="pointer-events-none absolute right-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-border to-transparent opacity-60"
+        aria-hidden="true"
+      />
     </aside>
   );
 }
 
-// ─── Mobile Sidebar (for sheet/drawer) ──────────────────────────────────────
-
 export function MobileSidebar({ onClose }: { onClose?: () => void }) {
   return (
-    <div className="overflow-y-auto py-4 px-2">
+    <div className="flex flex-col gap-4 p-4">
       <SidebarNav onLinkClick={onClose} />
     </div>
   );

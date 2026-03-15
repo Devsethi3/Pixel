@@ -1,19 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Grid3X3, Palette, Hexagon, Sparkles, Zap, Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { CATEGORIES, type CategoryId } from "@/lib/constants";
 import { useFavoritesStore } from "@/stores/favorites-store";
-
-const iconMap: Record<string, React.ReactNode> = {
-  grid: <Grid3X3 className="size-3.5" />,
-  palette: <Palette className="size-3.5" />,
-  hexagon: <Hexagon className="size-3.5" />,
-  sparkles: <Sparkles className="size-3.5" />,
-  zap: <Zap className="size-3.5" />,
-  heart: <Heart className="size-3.5" />,
-};
 
 interface CategoryTabsProps {
   activeCategory: CategoryId;
@@ -43,7 +33,7 @@ export function CategoryTabs({
               key={category.id}
               onClick={() => onCategoryChange(category.id)}
               className={cn(
-                "relative flex items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                "relative flex cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 isActive
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground",
@@ -61,7 +51,6 @@ export function CategoryTabs({
                 />
               )}
               <span className="relative z-10 flex items-center gap-1.5">
-                {iconMap[category.icon]}
                 {category.label}
                 {count > 0 && (
                   <span

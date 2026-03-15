@@ -1,10 +1,27 @@
+// components/shader-demo.tsx
 "use client";
 
 import { useState, Suspense } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { getShaderComponent } from "@/components/shaders";
-import { CodeBlock } from "./code-block";
+import type { BundledLanguage } from "@/components/kibo-ui/code-block";
+import {
+  CodeBlock,
+  CodeBlockBody,
+  CodeBlockContent,
+  CodeBlockCopyButton,
+  CodeBlockFilename,
+  CodeBlockFiles,
+  CodeBlockHeader,
+  CodeBlockItem,
+  CodeBlockSelect,
+  CodeBlockSelectContent,
+  CodeBlockSelectItem,
+  CodeBlockSelectTrigger,
+  CodeBlockSelectValue,
+} from "@/components/kibo-ui/code-block";
+import { generateShaderUsageCode } from "@/lib/shader-code-examples";
 
 interface ShaderDemoProps {
   shaderId: string;
@@ -18,30 +35,10 @@ const tabs = [
 
 type TabId = (typeof tabs)[number]["id"];
 
-function toPascalCase(str: string): string {
-  return str
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join("");
-}
-
 export function ShaderDemo({ shaderId, shaderName }: ShaderDemoProps) {
   const [activeTab, setActiveTab] = useState<TabId>("preview");
   const ShaderComponent = getShaderComponent(shaderId);
-
-  const usageCode = `import ${toPascalCase(shaderId)} from "@/components/shaders/${shaderId}"
-
-export default function Hero() {
-  return (
-    <${toPascalCase(shaderId)} className="min-h-[400px]">
-      <div className="flex items-center justify-center h-full p-8">
-        <h1 className="text-4xl font-bold text-white">
-          ${shaderName}
-        </h1>
-      </div>
-    </${toPascalCase(shaderId)}>
-  )
-}`;
+  const usageCodeData = generateShaderUsageCode(shaderId, shaderName);
 
   return (
     <div className="overflow-hidden rounded-xl border border-border">
@@ -116,7 +113,51 @@ export default function Hero() {
           </div>
         ) : (
           <div className="p-0">
-            <CodeBlock code={usageCode} language="tsx" />
+            <CodeBlock
+              data={usageCodeData}
+              defaultValue={usageCodeData[0].language}
+              className="border-0 rounded-none"
+            >
+              <CodeBlockHeader>
+                <CodeBlockFiles>
+                  {(item) => (
+                    <CodeBlockFilename
+                      key={item.language}
+                      value={item.language}
+                    >
+                      {item.filename}
+                    </CodeBlockFilename>
+                  )}
+                </CodeBlockFiles>
+                <CodeBlockSelect>
+                  <CodeBlockSelectTrigger>
+                    <CodeBlockSelectValue />
+                  </CodeBlockSelectTrigger>
+                  <CodeBlockSelectContent>
+                    {(item) => (
+                      <CodeBlockSelectItem
+                        key={item.language}
+                        value={item.language}
+                      >
+                        {item.language}
+                      </CodeBlockSelectItem>
+                    )}
+                  </CodeBlockSelectContent>
+                </CodeBlockSelect>
+                <CodeBlockCopyButton />
+              </CodeBlockHeader>
+              <CodeBlockBody>
+                {(item) => (
+                  <CodeBlockItem key={item.language} value={item.language}>
+                    <CodeBlockContent
+                      language={item.language as BundledLanguage}
+                    >
+                      {item.code}
+                    </CodeBlockContent>
+                  </CodeBlockItem>
+                )}
+              </CodeBlockBody>
+            </CodeBlock>
           </div>
         )}
       </motion.div>

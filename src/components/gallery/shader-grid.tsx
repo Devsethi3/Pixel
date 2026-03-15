@@ -69,7 +69,7 @@ export function ShaderGrid() {
       </div>
 
       {/* Results Count */}
-      <AnimatePresence mode="wait">
+      {/* <AnimatePresence mode="wait">
         <motion.div
           key={`${activeCategory}-${searchQuery}-${filteredShaders.length}`}
           initial={{ opacity: 0 }}
@@ -82,7 +82,7 @@ export function ShaderGrid() {
           {filteredShaders.length !== 1 ? "s" : ""}
           {searchQuery && ` matching "${searchQuery}"`}
         </motion.div>
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* Grid */}
       <AnimatePresence mode="wait">
@@ -107,7 +107,6 @@ export function ShaderGrid() {
             transition={{ duration: 0.3 }}
             className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border py-20"
           >
-            <Sparkles className="mb-4 size-8 text-muted-foreground/50" />
             <h3 className="text-sm font-semibold">No shaders found</h3>
             <p className="mt-1 text-xs text-muted-foreground">
               {activeCategory === "favorites"

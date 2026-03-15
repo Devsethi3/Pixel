@@ -1,9 +1,16 @@
+// app/docs/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Package, Terminal, Palette } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  Terminal,
+  Palette,
+  ChevronRight,
+} from "lucide-react";
 import { CodeBlockCommand } from "@/components/docs/code-block-command";
-import { CodeBlock } from "@/components/docs/code-block";
 import { convertNpmCommand } from "@/lib/convert-npm-command";
+import { QuickStartCodeBlock } from "@/components/docs/quick-start-code-block";
 
 export const metadata: Metadata = {
   title: "Getting Started",
@@ -13,95 +20,173 @@ export const metadata: Metadata = {
 
 export default function DocsPage() {
   return (
-    <article className="prose prose-neutral dark:prose-invert max-w-3xl">
-      <h1 className="text-3xl font-bold tracking-tight">Getting Started</h1>
-      <p className="lead text-lg text-muted-foreground">
-        Pixel provides beautiful, production-ready shader background components
-        for React & Next.js. Install individually with the shadcn CLI or
-        copy-paste manually.
-      </p>
-
-      <hr className="my-8" />
-
-      {/* Prerequisites */}
-      <h2 className="flex items-center gap-2 text-xl font-semibold">
-        <Package className="size-5" />
-        Prerequisites
-      </h2>
-      <p>Before you start, make sure you have:</p>
-      <ul>
-        <li>
-          A <strong>React</strong> or <strong>Next.js</strong> project
-        </li>
-        <li>
-          <strong>Tailwind CSS</strong> configured
-        </li>
-        <li>
-          <strong>shadcn/ui</strong> initialized (for CLI installation)
-        </li>
-      </ul>
-
-      <h2 className="flex items-center gap-2 text-xl font-semibold">
-        <Terminal className="size-5" />
-        Quick Start
-      </h2>
-      <p>Install any shader component with a single command:</p>
-
-      <div className="not-prose my-6">
-        <CodeBlockCommand
-          {...convertNpmCommand(
-            "npx shadcn add https://pixel.devsethi.site/r/ocean-wave.json",
-          )}
-        />
-      </div>
-
-      <p>Then import and use it in your component:</p>
-
-      <div className="not-prose my-6">
-        <CodeBlock
-          code={`import OceanWave from "@/components/shaders/ocean-wave"
-
-export default function Hero() {
-  return (
-    <OceanWave className="min-h-screen">
-      <div className="flex items-center justify-center h-full p-8">
-        <h1 className="text-5xl font-bold text-white">
-          Hello World
+    <div className="max-w-3xl space-y-10 pb-16">
+      {/* Page Header */}
+      <div className="space-y-4">
+        <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+          <span className="hover:text-foreground transition-colors cursor-pointer">
+            Documentation
+          </span>
+          <ChevronRight className="size-3.5" />
+          <span className="font-medium text-foreground">Getting Started</span>
+        </div>
+        <h1 className="scroll-m-20 text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
+          Getting Started
         </h1>
-      </div>
-    </OceanWave>
-  )
-}`}
-          language="tsx"
-          filename="app/page.tsx"
-        />
+        <p className="text-xl text-muted-foreground leading-8">
+          Pixel provides production-ready WebGL shader backgrounds. Follow this
+          guide to add high-performance visuals to your application in minutes.
+        </p>
       </div>
 
-      <hr className="my-8" />
+      <hr className="border-border/60" />
 
-      {/* Browse */}
-      <h2 className="flex items-center gap-2 text-xl font-semibold">
-        <Palette className="size-5" />
-        Browse Shaders
-      </h2>
-      <p>
-        Explore all available shader components in the{" "}
-        <Link href="/" className="font-medium underline underline-offset-4">
-          gallery
-        </Link>{" "}
-        or browse the docs sidebar to find the perfect background for your
-        project.
-      </p>
-
-      <div className="not-prose mt-6">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-        >
-          Browse Gallery
-          <ArrowRight className="size-4" />
-        </Link>
+      {/* Prerequisites Section */}
+      <div className="space-y-6">
+        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Prerequisites
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-3">
+          <RequirementCard text="React 18+ or Next.js" />
+          <RequirementCard text="Tailwind CSS installed" />
+          <RequirementCard text="shadcn/ui initialized" subtext="(for CLI)" />
+        </div>
       </div>
-    </article>
+
+      {/* Installation Steps Timeline */}
+      {/* Installation Steps Timeline */}
+      <div className="space-y-8 pt-6">
+        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Installation
+        </h2>
+
+        {/* Timeline */}
+        <div className="relative">
+          {/* Vertical Line */}
+          <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
+
+          <div className="space-y-14">
+            <TimelineStep number="1" title="Add a shader component">
+              <p className="text-muted-foreground leading-7">
+                Use the CLI to add a specific shader to your project. This will
+                install necessary dependencies (like three.js) automatically.
+              </p>
+
+              <div className="mt-6 rounded-xl border bg-zinc-950 dark:bg-zinc-900 shadow-sm overflow-hidden">
+                <CodeBlockCommand
+                  {...convertNpmCommand(
+                    "npx shadcn add https://pixel.devsethi.site/r/ocean-wave.json",
+                  )}
+                />
+              </div>
+            </TimelineStep>
+
+            <TimelineStep number="2" title="Import and use">
+              <p className="text-muted-foreground leading-7">
+                Import the component into your page or layout. The component
+                fills its parent container by default.
+              </p>
+
+              <div className="mt-6 rounded-xl border bg-zinc-950 dark:bg-zinc-900 shadow-sm overflow-hidden">
+                <QuickStartCodeBlock />
+              </div>
+            </TimelineStep>
+          </div>
+        </div>
+      </div>
+
+      {/* Next Steps / Browse */}
+      <div className="space-y-6 pt-10">
+        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          What's Next?
+        </h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <Link
+            href="/"
+            className="group relative flex flex-col justify-between overflow-hidden rounded-xl border bg-background p-6 hover:border-foreground/20 hover:bg-muted/50 transition-all duration-200"
+          >
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 font-medium text-foreground">
+                <Palette className="size-4" />
+                Browse Gallery
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Explore our collection of liquid, grain, and geometric shaders.
+              </p>
+            </div>
+            <ArrowRight className="absolute bottom-6 right-6 size-4 opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-primary" />
+          </Link>
+
+          <Link
+            href="/docs/customization"
+            className="group relative flex flex-col justify-between overflow-hidden rounded-xl border bg-background p-6 hover:border-foreground/20 hover:bg-muted/50 transition-all duration-200"
+          >
+            <div className="space-y-2">
+              <div className="flex items-center gap-2 font-medium text-foreground">
+                <Terminal className="size-4" />
+                Customization
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Learn how to tweak uniforms, colors, and performance settings.
+              </p>
+            </div>
+            <ArrowRight className="absolute bottom-6 right-6 size-4 opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-primary" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// --- Subcomponents for Clean Layout ---
+
+function RequirementCard({
+  text,
+  subtext,
+}: {
+  text: string;
+  subtext?: string;
+}) {
+  return (
+    <div className="flex items-start gap-3 rounded-xl border bg-card p-4 text-sm font-medium shadow-sm transition-all hover:border-foreground/20">
+      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary mt-0.5">
+        <Check className="h-3 w-3" />
+      </div>
+      <div className="flex flex-col gap-0.5">
+        <span className="text-foreground">{text}</span>
+        {subtext && (
+          <span className="text-xs text-muted-foreground font-normal">
+            {subtext}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function TimelineStep({
+  number,
+  title,
+  children,
+}: {
+  number: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="relative pl-14">
+      {/* Badge */}
+      <div className="absolute left-0 top-0 flex size-8 items-center justify-center rounded-full border bg-background text-sm font-semibold shadow-sm ring-4 ring-background">
+        {number}
+      </div>
+
+      {/* Content */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold tracking-tight text-foreground">
+          {title}
+        </h3>
+        {children}
+      </div>
+    </div>
   );
 }

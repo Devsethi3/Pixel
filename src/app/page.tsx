@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import { motion } from "motion/react";
 import { ShaderGrid } from "@/components/gallery/shader-grid";
-import { LandingHero } from "@/components/landing-hero";
+import { LandingHero } from "@/components/landing/landing-hero";
+import { TerminalProcess } from "@/components/landing/process";
 
 export default function HomePage() {
   return (
@@ -12,6 +12,7 @@ export default function HomePage() {
           <ShaderGrid />
         </Suspense>
       </section>
+      <TerminalProcess />
     </>
   );
 }
@@ -21,7 +22,7 @@ function GridSkeleton() {
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {Array.from({ length: 6 }).map((_, i) => (
         <div key={i} className="animate-pulse rounded-xl border border-border">
-          <div className="aspect-[16/10] bg-muted" />
+          <div className="aspect-16/10 bg-muted" />
           <div className="space-y-2 p-4">
             <div className="h-4 w-2/3 rounded bg-muted" />
             <div className="h-3 w-full rounded bg-muted" />
