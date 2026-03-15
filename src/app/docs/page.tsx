@@ -1,4 +1,3 @@
-// app/docs/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
@@ -20,8 +19,7 @@ export const metadata: Metadata = {
 
 export default function DocsPage() {
   return (
-    <div className="max-w-3xl space-y-10 pb-16">
-      {/* Page Header */}
+    <div className="max-w-3xl space-y-10 py-16">
       <div className="space-y-4">
         <div className="flex items-center space-x-2 text-sm text-muted-foreground">
           <span className="hover:text-foreground transition-colors cursor-pointer">
@@ -30,10 +28,10 @@ export default function DocsPage() {
           <ChevronRight className="size-3.5" />
           <span className="font-medium text-foreground">Getting Started</span>
         </div>
-        <h1 className="scroll-m-20 text-4xl font-bold tracking-tight text-foreground lg:text-5xl">
+        <h2 className="scroll-m-20 text-2xl font-medium tracking-tight text-foreground lg:text-3xl">
           Getting Started
-        </h1>
-        <p className="text-xl text-muted-foreground leading-8">
+        </h2>
+        <p className="text-base text-muted-foreground leading-8">
           Pixel provides production-ready WebGL shader backgrounds. Follow this
           guide to add high-performance visuals to your application in minutes.
         </p>
@@ -43,26 +41,22 @@ export default function DocsPage() {
 
       {/* Prerequisites Section */}
       <div className="space-y-6">
-        <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+        <h3 className="scroll-m-20 text-xl font-medium tracking-tight">
           Prerequisites
-        </h2>
+        </h3>
         <div className="grid gap-4 sm:grid-cols-3">
           <RequirementCard text="React 18+ or Next.js" />
           <RequirementCard text="Tailwind CSS installed" />
-          <RequirementCard text="shadcn/ui initialized" subtext="(for CLI)" />
+          <RequirementCard text="shadcn/ui initialized" />
         </div>
       </div>
 
-      {/* Installation Steps Timeline */}
-      {/* Installation Steps Timeline */}
       <div className="space-y-8 pt-6">
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           Installation
         </h2>
 
-        {/* Timeline */}
         <div className="relative">
-          {/* Vertical Line */}
           <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
 
           <div className="space-y-14">
@@ -95,7 +89,6 @@ export default function DocsPage() {
         </div>
       </div>
 
-      {/* Next Steps / Browse */}
       <div className="space-y-6 pt-10">
         <h2 className="scroll-m-20 text-2xl font-semibold tracking-tight">
           What's Next?
@@ -138,8 +131,6 @@ export default function DocsPage() {
   );
 }
 
-// --- Subcomponents for Clean Layout ---
-
 function RequirementCard({
   text,
   subtext,
@@ -175,12 +166,10 @@ function TimelineStep({
 }) {
   return (
     <div className="relative pl-14">
-      {/* Badge */}
       <div className="absolute left-0 top-0 flex size-8 items-center justify-center rounded-full border bg-background text-sm font-semibold shadow-sm ring-4 ring-background">
         {number}
       </div>
 
-      {/* Content */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold tracking-tight text-foreground">
           {title}
