@@ -41,7 +41,7 @@ export function PreviewCodeBlock({
       defaultValue={defaultValue}
       className={cn("rounded-none border-0", className)}
     >
-      <CodeBlockHeader className="bg-muted/30 border-b border-border px-2">
+      <CodeBlockHeader className="border-b border-border px-2">
         <div className="flex-1" />
         <CodeBlockSelect>
           <CodeBlockSelectTrigger className="h-7 gap-1.5 rounded-md border-none bg-transparent px-2 text-xs font-medium text-muted-foreground shadow-none hover:bg-accent hover:text-accent-foreground transition-colors">

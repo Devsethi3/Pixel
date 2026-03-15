@@ -30,22 +30,22 @@ export function ShaderDocContent({ shader }: ShaderDocContentProps) {
     >
       {/* Header */}
       <div className="space-y-4">
-        <div className="flex flex-wrap items-center gap-2">
+        {/* <div className="flex flex-wrap items-center gap-2">
           <Badge variant="secondary" className="text-xs capitalize">
             {shader.category}
           </Badge>
           <Badge variant="outline" className="text-xs">
             {perfLabels[shader.performanceRating]}
           </Badge>
-        </div>
+        </div> */}
 
-        <h1 className="text-3xl font-bold tracking-tight">{shader.name}</h1>
+        <h1 className="text-2xl font-medium tracking-tight">{shader.name}</h1>
         <p className="text-lg text-muted-foreground leading-relaxed">
           {shader.description}
         </p>
 
         {/* Tags */}
-        <div className="flex flex-wrap gap-1.5">
+        {/* <div className="flex flex-wrap gap-1.5">
           {shader.tags.map((tag) => (
             <span
               key={tag}
@@ -54,18 +54,18 @@ export function ShaderDocContent({ shader }: ShaderDocContentProps) {
               {tag}
             </span>
           ))}
-        </div>
+        </div> */}
       </div>
 
       {/* Preview */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold">Preview</h2>
+        <h2 className="text-lg font-medium">Preview</h2>
         <ShaderDemo shaderId={shader.id} shaderName={shader.name} />
       </section>
 
       {/* Installation */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold">Installation</h2>
+        <h2 className="text-lg font-medium">Installation</h2>
         <InstallationTabs
           shaderId={shader.id}
           componentCode={componentCode}
@@ -75,13 +75,13 @@ export function ShaderDocContent({ shader }: ShaderDocContentProps) {
 
       {/* Props */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold">Props</h2>
+        <h2 className="text-lg font-medium">Props</h2>
         <PropsTable props={shader.props} />
       </section>
 
       {/* Color Palette */}
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold">Color Palette</h2>
+        <h2 className="text-lg font-medium">Color Palette</h2>
         <div className="flex items-center gap-3">
           {shader.colors.map((color) => (
             <div key={color} className="flex items-center gap-2">
