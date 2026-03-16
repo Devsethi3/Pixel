@@ -23,10 +23,10 @@ export default function InstallationPage() {
           <ChevronRight className="size-3.5" />
           <span className="font-medium text-foreground">Installation</span>
         </div>
-        <h2 className="scroll-m-20 text-3xl font-medium tracking-tight text-foreground">
+        <h2 className="scroll-m-20 lg:text-3xl text-2xl font-medium tracking-tight text-foreground">
           Installation
         </h2>
-        <p className="text-xl text-muted-foreground leading-8">
+        <p className="lg:text-lg text-sm text-muted-foreground">
           There are two ways to install Pixel shader components: using the
           shadcn CLI (recommended) or manual installation.
         </p>
