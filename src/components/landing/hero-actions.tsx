@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { GithubIcon } from "@hugeicons/core-free-icons";
+import { Button } from "../ui/button";
 
 const HeroActions = () => {
   return (
@@ -16,13 +17,13 @@ const HeroActions = () => {
         transition={{ delay: 0.4, duration: 0.5 }}
         className="flex flex-wrap items-center gap-3 pt-2"
       >
-        <TextureButton asChild className="group">
+        <Button asChild className="group h-10 px-4" size={"lg"}>
           <Link href="/docs" className="gap-2 flex items-center">
             <span>Get Started</span>
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
-        </TextureButton>
-        <TextureButton variant="accent" asChild>
+        </Button>
+        <Button asChild size={"lg"} variant={"secondary"} className="h-10 px-4">
           <Link
             href={SITE_CONFIG.github}
             target="_blank"
@@ -32,7 +33,7 @@ const HeroActions = () => {
             <HugeiconsIcon icon={GithubIcon} className="size-4" />
             GitHub
           </Link>
-        </TextureButton>
+        </Button>
       </motion.div>
 
       {/* Stats */}

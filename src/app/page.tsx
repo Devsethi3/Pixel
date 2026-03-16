@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { ShaderGrid } from "@/components/gallery/shader-grid";
 import { LandingHero } from "@/components/landing/landing-hero";
 import { TerminalProcess } from "@/components/landing/process";
+import { Footer } from "@/components/landing/footer";
 
 export default function HomePage() {
   return (
@@ -11,8 +12,9 @@ export default function HomePage() {
         <Suspense fallback={<GridSkeleton />}>
           <ShaderGrid />
         </Suspense>
+        <TerminalProcess />
       </section>
-      {/* <TerminalProcess /> */}
+      <Footer />
     </>
   );
 }
