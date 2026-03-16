@@ -22,7 +22,7 @@ const HeroActions = () => {
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </TextureButton>
-        <TextureButton variant="secondary" asChild>
+        <TextureButton variant="accent" asChild>
           <Link
             href={SITE_CONFIG.github}
             target="_blank"

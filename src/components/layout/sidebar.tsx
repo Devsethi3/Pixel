@@ -13,6 +13,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 interface SidebarLink {
   title: string;
   href: string;
+  disabled?: boolean;
+  badge?: string;
 }
 
 interface SidebarGroupData {
@@ -26,7 +28,12 @@ function buildSidebarNav(): SidebarGroupData[] {
     links: [
       { title: "Introduction", href: "/docs" },
       { title: "Installation", href: "/docs/installation" },
-      { title: "Customization", href: "/docs/customization" },
+      {
+        title: "Customization",
+        href: "/docs/customization",
+        disabled: true,
+        badge: "Coming Soon",
+      },
     ],
   };
 
@@ -54,6 +61,24 @@ function SidebarItem({
   isActive: boolean;
   onClick?: () => void;
 }) {
+  if (link.disabled) {
+    return (
+      <div
+        className={cn(
+          "group relative flex w-full items-center justify-between rounded-md px-3 py-1.5 text-sm",
+          "cursor-not-allowed text-muted-foreground/50",
+        )}
+      >
+        <span>{link.title}</span>
+        {link.badge && (
+          <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium text-muted-foreground">
+            {link.badge}
+          </span>
+        )}
+      </div>
+    );
+  }
+
   return (
     <Link
       href={link.href}

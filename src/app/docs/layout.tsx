@@ -17,7 +17,7 @@ export default function DocsLayout({
           </aside>
 
           {/* Content */}
-          <main className="min-w-0 py-10">
+          <main className="min-w-0 pt-24">
             <MobileDocNav />
             {children}
           </main>
