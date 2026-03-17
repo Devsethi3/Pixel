@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { Github, Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 
@@ -14,8 +14,14 @@ import ThemeToggle from "../ui/theme-toggle";
 import Logo from "../ui/logo";
 
 const navLinks = [
-  { href: "/", label: "Gallery" },
-  { href: "/docs", label: "Docs" },
+  { href: "/", label: "Home", disabled: false },
+  { href: "/docs", label: "Docs", disabled: false },
+  {
+    href: "/templates",
+    label: "Templates",
+    disabled: true,
+    badge: "Coming Soon",
+  },
 ];
 
 export function Navbar() {
@@ -25,9 +31,9 @@ export function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 10);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -35,60 +41,101 @@ export function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
   return (
     <header>
-      <nav className="fixed z-20 w-full px-2">
-        <div
+      <motion.nav
+        className="fixed z-50 w-full px-2"
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+        {/* Navbar Container */}
+        <motion.div
           className={cn(
-            `
-      mx-auto mt-2
-      w-full max-w-6xl
-      px-3 sm:px-4 lg:px-6
-      bg-background/60
-      backdrop-blur-lg
-      rounded-2xl
-      border
-      transition-all duration-300
-      `,
-            // isScrolled && "max-w-4xl px-3 sm:px-4 lg:px-5",
+            "relative z-50 mx-auto mt-2 w-full max-w-6xl rounded-2xl border bg-background/60 backdrop-blur-xl transition-[max-width,padding,box-shadow] duration-500 ease-out",
+            isScrolled
+              ? "max-w-5xl px-3 shadow-sm sm:px-4 lg:px-5"
+              : "px-3 sm:px-4 lg:px-6",
           )}
         >
-          <div className="mx-auto flex h-14 max-w-7xl items-center justify-between">
+          <div className="flex h-14 items-center justify-between">
             {/* Logo */}
             <Logo />
 
             {/* Desktop Nav */}
-            <nav className="hidden items-center gap-1 md:flex">
+            <nav className="hidden items-center gap-0.5 md:flex">
               {navLinks.map((link) => {
                 const isActive =
                   link.href === "/"
                     ? pathname === "/"
                     : pathname.startsWith(link.href);
 
+                if (link.disabled) {
+                  return (
+                    <span
+                      key={link.href}
+                      className="relative inline-flex cursor-not-allowed items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-muted-foreground/50 select-none"
+                    >
+                      {link.label}
+                      {link.badge && (
+                        <span className="inline-flex items-center rounded-full border border-border/50 bg-muted/50 px-1.5 py-0.5 text-[10px] font-medium leading-none text-muted-foreground/70">
+                          {link.badge}
+                        </span>
+                      )}
+                    </span>
+                  );
+                }
+
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
                     className={cn(
-                      "relative px-3 py-1.5 text-sm font-medium transition-colors",
+                      "relative px-3 py-1.5 text-sm font-medium transition-colors duration-200",
                       isActive
                         ? "text-foreground"
                         : "text-muted-foreground hover:text-foreground",
                     )}
                   >
                     {link.label}
+                    {isActive && (
+                      <motion.div
+                        className="absolute inset-x-1 -bottom-[1px] h-[2px] rounded-full bg-foreground"
+                        layoutId="navbar-indicator"
+                        transition={{
+                          type: "spring",
+                          stiffness: 380,
+                          damping: 30,
+                        }}
+                      />
+                    )}
                   </Link>
                 );
               })}
             </nav>
 
             {/* Right Actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               <div className="hidden sm:block">
                 <PackageManagerSelector />
               </div>
 
-              <Button variant="outline" size="lg" asChild>
+              <Button
+                variant="outline"
+                size="lg"
+                asChild
+              >
                 <Link
                   href={SITE_CONFIG.github}
                   target="_blank"
@@ -96,7 +143,7 @@ export function Navbar() {
                   aria-label="GitHub"
                 >
                   <Github className="size-4" />
-                  GitHub
+                  <span className="hidden sm:inline">GitHub</span>
                 </Link>
               </Button>
 
@@ -104,22 +151,150 @@ export function Navbar() {
 
               {/* Mobile Menu Toggle */}
               <Button
-                variant="ghost"
+                variant="outline"
                 size="icon"
-                className="size-8 md:hidden"
+                className="relative size-8 md:hidden"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label="Toggle menu"
+                aria-expanded={mobileOpen}
               >
-                {mobileOpen ? (
-                  <X className="size-4" />
-                ) : (
-                  <Menu className="size-4" />
-                )}
+                <AnimatePresence mode="wait" initial={false}>
+                  {mobileOpen ? (
+                    <motion.div key="close" transition={{ duration: 0.15 }}>
+                      <X className="size-4" />
+                    </motion.div>
+                  ) : (
+                    <motion.div key="menu" transition={{ duration: 0.15 }}>
+                      <Menu className="size-4" />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </Button>
             </div>
           </div>
-        </div>
-      </nav>
+        </motion.div>
+
+        {/* Mobile Menu - Rendered BELOW the navbar */}
+        <AnimatePresence>
+          {mobileOpen && (
+            <>
+              {/* Backdrop - starts below navbar */}
+              <motion.div
+                className="fixed inset-0 top-0 z-40 bg-background/60 backdrop-blur-sm md:hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => setMobileOpen(false)}
+              />
+
+              {/* Menu Panel - positioned right below navbar */}
+              <motion.div
+                className="relative z-50 mx-auto mt-2 w-full max-w-6xl md:hidden"
+                initial={{ opacity: 0, y: -12, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -12, scale: 0.98 }}
+                transition={{
+                  duration: 0.25,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+              >
+                <div className="overflow-hidden rounded-2xl border bg-background/95 shadow-lg backdrop-blur-xl">
+                  <div className="flex flex-col p-2">
+                    {navLinks.map((link, index) => {
+                      const isActive =
+                        link.href === "/"
+                          ? pathname === "/"
+                          : pathname.startsWith(link.href);
+
+                      if (link.disabled) {
+                        return (
+                          <motion.span
+                            key={link.href}
+                            initial={{ opacity: 0, x: -8 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{
+                              delay: index * 0.05 + 0.05,
+                              duration: 0.2,
+                            }}
+                            className="flex cursor-not-allowed items-center justify-between rounded-xl px-4 py-3 text-sm font-medium text-muted-foreground/50 select-none"
+                          >
+                            <span>{link.label}</span>
+                            {link.badge && (
+                              <span className="inline-flex items-center rounded-full border border-border/50 bg-muted/50 px-2 py-0.5 text-[10px] font-medium leading-none text-muted-foreground/70">
+                                {link.badge}
+                              </span>
+                            )}
+                          </motion.span>
+                        );
+                      }
+
+                      return (
+                        <motion.div
+                          key={link.href}
+                          initial={{ opacity: 0, x: -8 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{
+                            delay: index * 0.05 + 0.05,
+                            duration: 0.2,
+                          }}
+                        >
+                          <Link
+                            href={link.href}
+                            onClick={() => setMobileOpen(false)}
+                            className={cn(
+                              "flex items-center rounded-xl px-4 py-3 text-sm font-medium transition-colors duration-150",
+                              isActive
+                                ? "bg-muted text-foreground"
+                                : "text-muted-foreground hover:bg-muted/50 hover:text-foreground active:bg-muted",
+                            )}
+                          >
+                            {link.label}
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+
+                  {/* Mobile-only actions */}
+                  <motion.div
+                    className="border-t p-3"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{
+                      delay: navLinks.length * 0.05 + 0.05,
+                      duration: 0.2,
+                    }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="sm:hidden">
+                        <PackageManagerSelector />
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        asChild
+                        className="xs:hidden"
+                      >
+                        <Link
+                          href={SITE_CONFIG.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label="GitHub"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          <Github className="size-4" />
+                          GitHub
+                        </Link>
+                      </Button>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
+      </motion.nav>
     </header>
   );
 }
