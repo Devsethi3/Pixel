@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Suspense } from "react";
+import { useState, Suspense, useMemo } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { getShaderComponent } from "@/components/shaders";
@@ -36,7 +36,10 @@ type TabId = (typeof tabs)[number]["id"];
 
 export function ShaderDemo({ shaderId, shaderName }: ShaderDemoProps) {
   const [activeTab, setActiveTab] = useState<TabId>("preview");
-  const ShaderComponent = getShaderComponent(shaderId);
+  const ShaderComponent = useMemo(
+    () => getShaderComponent(shaderId),
+    [shaderId],
+  );
   const usageCodeData = generateShaderUsageCode(shaderId, shaderName);
 
   return (

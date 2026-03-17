@@ -3,8 +3,6 @@ import Link from "next/link";
 import {
   ArrowRight,
   Check,
-  Terminal,
-  Palette,
   ChevronRight,
 } from "lucide-react";
 import { CodeBlockCommand } from "@/components/docs/code-block-command";
@@ -91,7 +89,7 @@ export default function DocsPage() {
 
       <div className="space-y-6 pt-10">
         <h3 className="scroll-m-20 text-xl font-medium tracking-tight">
-          What's Next?
+          What&apos;s Next?
         </h3>
         <div className="grid gap-4 md:grid-cols-2">
           <Link

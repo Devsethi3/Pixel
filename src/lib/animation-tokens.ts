@@ -1,4 +1,4 @@
-import type { Transition, Variants } from "motion/react";
+import type { Easing, Transition, Variants } from "motion/react";
 
 export const durations = {
   fast: 0.15,
@@ -7,10 +7,10 @@ export const durations = {
 } as const;
 
 export const easings = {
-  smooth: [0.4, 0.0, 0.2, 1] as const,
+  smooth: [0.4, 0.0, 0.2, 1] as Easing,
   spring: { type: "spring" as const, stiffness: 300, damping: 30 },
   springGentle: { type: "spring" as const, stiffness: 200, damping: 25 },
-  inOut: [0.4, 0, 0.2, 1] as const,
+  inOut: [0.4, 0, 0.2, 1] as Easing,
 };
 
 export const fadeIn: Variants = {
@@ -54,7 +54,7 @@ export const staggerItem: Variants = {
 
 export const defaultTransition: Transition = {
   duration: durations.normal,
-  ease: easings.smooth as unknown as number[],
+  ease: easings.smooth,
 };
 
 export const springTransition: Transition = {

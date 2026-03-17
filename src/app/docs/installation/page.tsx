@@ -6,6 +6,7 @@ import {
   InstallStructureCodeBlock,
 } from "@/components/docs/install-code-blocks";
 import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Installation",
@@ -90,12 +91,12 @@ export default function InstallationPage() {
             <TimelineStep number="2" title="Copy the component">
               <p className="text-muted-foreground leading-7">
                 Browse the{" "}
-                <a
+                <Link
                   href="/docs"
                   className="font-medium underline underline-offset-4 hover:text-primary"
                 >
                   shader documentation
-                </a>{" "}
+                </Link>{" "}
                 and copy the component code into your project. Each shader doc
                 includes a full copy-paste component.
               </p>

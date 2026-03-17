@@ -11,9 +11,10 @@ export function MobileDocNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close on route change
   useEffect(() => {
-    setOpen(false);
+    if (open) {
+      setOpen(false);
+    }
   }, [pathname]);
 
   // Lock body scroll when open

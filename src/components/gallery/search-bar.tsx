@@ -15,8 +15,8 @@ export function SearchBar({ value, onChange, className }: SearchBarProps) {
   const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const [localValue, setLocalValue] = useState(value);
-  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
-
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  
   useEffect(() => {
     setLocalValue(value);
   }, [value]);

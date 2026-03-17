@@ -13,7 +13,6 @@ import {
 } from "geist/font/pixel";
 import { Providers } from "@/components/providers/providers";
 import { Navbar } from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 

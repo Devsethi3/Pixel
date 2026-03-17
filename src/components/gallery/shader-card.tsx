@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { Heart, Copy, Check, ArrowRight } from "lucide-react";
@@ -36,8 +36,11 @@ export function ShaderCard({ shader }: ShaderCardProps) {
   const manager = usePackageManagerStore((s) => s.manager);
   const { state: copyState, copy } = useCopyToClipboard();
 
-  const ShaderComponent = getShaderComponent(shader.id);
-
+  const ShaderComponent = useMemo(
+    () => getShaderComponent(shader.id),
+    [shader.id],
+  );
+  
   const pmCommands: Record<string, string> = {
     pnpm: `pnpm dlx shadcn add ${BASE_URL}/r/${shader.id}.json`,
     npm: `npx shadcn add ${BASE_URL}/r/${shader.id}.json`,

@@ -7,11 +7,11 @@ import type { ShaderConfig } from "@/lib/shaders-config";
 import { motion } from "motion/react";
 import { getShaderComponentCode } from "@/lib/registry";
 
-const perfLabels: Record<string, string> = {
-  low: "Low Impact",
-  medium: "Medium Impact",
-  high: "High Impact",
-};
+// const perfLabels: Record<string, string> = {
+//   low: "Low Impact",
+//   medium: "Medium Impact",
+//   high: "High Impact",
+// };
 
 interface ShaderDocContentProps {
   shader: ShaderConfig;
