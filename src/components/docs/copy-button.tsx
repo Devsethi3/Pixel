@@ -1,3 +1,4 @@
+// CopyButton.tsx
 "use client";
 
 import { CheckIcon, CopyIcon, CircleXIcon } from "lucide-react";
@@ -8,6 +9,7 @@ import type { ComponentProps } from "react";
 import { Button } from "@/components/ui/button";
 import type { CopyState } from "@/hooks/use-copy-to-clipboard";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
+import { cn } from "@/lib/utils";
 
 const motionIconVariants: Variants = {
   initial: { opacity: 0, scale: 0.8, filter: "blur(2px)" },
@@ -28,15 +30,15 @@ function CopyStateIcon({ state }: { state: CopyState }) {
     <AnimatePresence mode="popLayout" initial={false}>
       {state === "idle" ? (
         <motion.span key="idle" {...motionIconProps}>
-          <CopyIcon className="size-3.5" />
+          <CopyIcon className="size-3 sm:size-3.5" />
         </motion.span>
       ) : state === "done" ? (
         <motion.span key="done" {...motionIconProps}>
-          <CheckIcon className="size-3.5" strokeWidth={3} />
+          <CheckIcon className="size-3 sm:size-3.5" strokeWidth={3} />
         </motion.span>
       ) : (
         <motion.span key="error" {...motionIconProps}>
-          <CircleXIcon className="size-3.5" />
+          <CircleXIcon className="size-3 sm:size-3.5" />
         </motion.span>
       )}
     </AnimatePresence>
@@ -54,6 +56,7 @@ export function CopyButton({
   onCopySuccess,
   onCopyError,
   onClick,
+  className,
   ...props
 }: CopyButtonProps) {
   const { state, copy } = useCopyToClipboard({
@@ -70,7 +73,12 @@ export function CopyButton({
         onClick?.(e);
       }}
       aria-label="Copy to clipboard"
-      className="size-7"
+      className={cn(
+        "size-6 sm:size-7 rounded-md touch-manipulation",
+        "hover:bg-muted/50 active:bg-muted/70",
+        "transition-colors",
+        className,
+      )}
       {...props}
     >
       <CopyStateIcon state={state} />
