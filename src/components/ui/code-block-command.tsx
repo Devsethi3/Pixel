@@ -105,7 +105,7 @@ export function CodeBlockCommand({
   }, [pnpm, yarn, npm, bun]);
 
   return (
-    <div className="relative overflow-hidden rounded-xl bg-code">
+    <div className="relative border overflow-hidden rounded-xl bg-code">
       <Tabs
         className="gap-0"
         value={packageManager}

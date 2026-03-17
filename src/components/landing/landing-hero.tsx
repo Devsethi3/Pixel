@@ -72,7 +72,7 @@ export function LandingHero() {
       )}
 
       {/* Content */}
-      <div className="relative z-10 mx-auto max-w-6xl px-2 py-28">
+      <div className="relative z-10 mx-auto max-w-6xl px-2 py-28 min-h-screen">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -104,13 +104,13 @@ export function LandingHero() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="space-y-2"
           >
-            <h1 className="text-4xl tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="text-4xl tracking-tight sm:text-5xl md:text-6xl lg:text-6xl">
               <PixelHeading initialFont="square" hoverFont="circle">
-                Shaders Backgrounds
+                Beautiful Shader
               </PixelHeading>
               <br />
               <PixelHeading initialFont="square" hoverFont="circle">
-                Copy and Paste
+                Backgrounds
               </PixelHeading>
             </h1>
           </motion.div>
@@ -120,7 +120,7 @@ export function LandingHero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            className="max-w-lg text-base text-muted-foreground leading-relaxed sm:text-lg"
+            className="max-w-lg text-base lg:text-muted-foreground text-foreground leading-relaxed sm:text-lg"
           >
             <PixelParagraphInverse
               text={text}
@@ -128,7 +128,7 @@ export function LandingHero() {
               as={wrapperTag}
               pixelFont={pixelFont}
               plainFont={plainFont}
-              className="max-w-xl text-lg leading-relaxed text-muted-foreground"
+              className="max-w-xl text-lg leading-relaxed"
               plainWordClassName="text-foreground"
             />
           </motion.div>
