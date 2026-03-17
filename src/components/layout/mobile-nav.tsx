@@ -32,7 +32,6 @@ export function MobileDocNav() {
     <div className="lg:hidden">
       <Button
         variant="outline"
-        size="sm"
         onClick={() => setOpen(true)}
         className="mb-6 gap-2 text-muted-foreground"
       >

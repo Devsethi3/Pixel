@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { ShaderDemo } from "@/components/docs/shader-demo";
 import { InstallationTabs } from "@/components/docs/installation-tabs";
 import { PropsTable } from "@/components/docs/props-table";
@@ -82,7 +81,7 @@ export function ShaderDocContent({ shader }: ShaderDocContentProps) {
       {/* Color Palette */}
       <section className="space-y-4">
         <h2 className="text-lg font-medium">Color Palette</h2>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           {shader.colors.map((color) => (
             <div key={color} className="flex items-center gap-2">
               <div

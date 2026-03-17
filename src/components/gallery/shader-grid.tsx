@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { Sparkles } from "lucide-react";
 
 import { SearchBar } from "./search-bar";
 import { CategoryTabs } from "./category-tabs";

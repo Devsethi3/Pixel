@@ -30,10 +30,18 @@ export function Footer() {
           <div className="col-span-3 w-full md:col-span-1">
             <span className="text-muted-foreground text-xs">Resources</span>
             <div className="mt-2 flex flex-col gap-2">
-              <Link href={"/"} className="hover:underline text-xs my-2">
+              <Link
+                href={"https://x.com/imsethidev"}
+                target="_blank"
+                className="hover:underline text-xs my-2"
+              >
                 Twitter
               </Link>
-              <Link href={"/"} className="hover:underline text-xs ">
+              <Link
+                href={"https://github.com/Devsethi3/Pixel"}
+                target="_blank"
+                className="hover:underline text-xs "
+              >
                 GitHub
               </Link>
             </div>

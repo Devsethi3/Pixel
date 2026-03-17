@@ -36,7 +36,7 @@ export function CodeBlock({
           </code>
         </pre>
 
-        <CopyButton className="absolute right-2 top-2" text={code} />
+        <CopyButton className="absolute right-0 top-2" text={code} />
       </div>
     </div>
   );

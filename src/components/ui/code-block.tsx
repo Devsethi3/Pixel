@@ -26,7 +26,7 @@ export function CodeBlock({ code, language = "bash" }: CodeBlockProps) {
       </pre>
       <button
         onClick={handleCopy}
-        className="absolute top-2 right-2 p-2 rounded-md bg-background border opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent"
+        className="absolute top-2 right-0 p-2 rounded-md bg-background border opacity-0 group-hover:opacity-100 transition-opacity hover:bg-accent"
         aria-label="Copy code"
       >
         {copied ? (
