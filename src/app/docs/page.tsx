@@ -109,10 +109,12 @@ export default function DocsPage() {
             <ArrowRight className="absolute bottom-6 right-6 size-4 opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-primary" />
           </Link>
 
-          <Link
-            href="/docs/customization"
-            className="group relative flex flex-col justify-between overflow-hidden rounded-xl border bg-background p-6 hover:border-foreground/20 hover:bg-muted/50 transition-all duration-200"
-          >
+          <div className="group relative flex flex-col justify-between overflow-hidden rounded-xl border bg-background p-6 opacity-60 cursor-not-allowed">
+            <div className="absolute top-4 right-4">
+              <span className="inline-flex items-center rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
+                Coming Soon
+              </span>
+            </div>
             <div className="space-y-2">
               <div className="flex items-center gap-2 font-medium text-foreground">
                 Customization
@@ -121,8 +123,7 @@ export default function DocsPage() {
                 Learn how to tweak uniforms, colors, and performance settings.
               </p>
             </div>
-            <ArrowRight className="absolute bottom-6 right-6 size-4 opacity-0 -translate-x-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 text-primary" />
-          </Link>
+          </div>
         </div>
       </div>
     </div>

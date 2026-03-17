@@ -6,7 +6,6 @@ import { generateRegistryItem } from "../lib/registry";
 const OUTPUT_DIR = join(process.cwd(), "public", "r");
 
 function main() {
-  // Ensure output directory exists
   if (!existsSync(OUTPUT_DIR)) {
     mkdirSync(OUTPUT_DIR, { recursive: true });
   }

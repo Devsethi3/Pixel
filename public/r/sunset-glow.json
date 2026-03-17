@@ -1,0 +1,12 @@
+{
+  "name": "sunset-glow",
+  "type": "registry:ui",
+  "files": [
+    {
+      "path": "components/shaders/sunset-glow.tsx",
+      "content": "... (component code as string)",
+      "type": "registry:ui"
+    }
+  ],
+  "dependencies": ["@paper-design/shaders-react"]
+}
