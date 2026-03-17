@@ -1,0 +1,12 @@
+{
+  "name": "aurora-dream",
+  "type": "registry:ui",
+  "files": [
+    {
+      "path": "components/shaders/aurora-dream.tsx",
+      "content": "... (component code as string)",
+      "type": "registry:ui"
+    }
+  ],
+  "dependencies": ["@paper-design/shaders-react"]
+}
