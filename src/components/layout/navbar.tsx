@@ -60,13 +60,12 @@ export function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        {/* Navbar Container */}
         <motion.div
           className={cn(
-            "relative z-50 mx-auto mt-2 w-full max-w-6xl rounded-2xl border bg-background/60 backdrop-blur-xl transition-[max-width,padding,box-shadow] duration-500 ease-out",
-            isScrolled
-              ? "max-w-5xl px-3 shadow-sm sm:px-4 lg:px-5"
-              : "px-3 sm:px-4 lg:px-6",
+            "relative z-50 mx-auto mt-2 w-full max-w-6xl rounded-xl border bg-background/60 backdrop-blur-xl transition-[max-width,padding,box-shadow] duration-500 ease-out lg:px-6 px-3",
+            // isScrolled
+            //   ? "max-w-5xl px-3 shadow-sm sm:px-4 lg:px-5"
+            //   : "px-3 sm:px-4 lg:px-6",
           )}
         >
           <div className="flex h-14 items-center justify-between">
