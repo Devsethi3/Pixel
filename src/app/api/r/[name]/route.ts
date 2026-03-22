@@ -7,7 +7,6 @@ export async function GET(
 ) {
   const { name } = await params;
 
-  // Remove .json extension if present
   const shaderId = name.replace(/\.json$/, "");
 
   const registryItem = generateRegistryItem(shaderId);
