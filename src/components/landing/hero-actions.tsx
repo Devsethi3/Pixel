@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import { TextureButton } from "../ui/texture-button";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
@@ -10,7 +9,6 @@ import { Button } from "../ui/button";
 const HeroActions = () => {
   return (
     <div>
-      {/* Actions */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
