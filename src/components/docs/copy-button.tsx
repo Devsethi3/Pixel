@@ -1,4 +1,3 @@
-// CopyButton.tsx
 "use client";
 
 import { CheckIcon, CopyIcon, CircleXIcon } from "lucide-react";
