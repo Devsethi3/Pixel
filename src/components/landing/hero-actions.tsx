@@ -35,18 +35,7 @@ const HeroActions = () => {
       </motion.div>
 
       {/* Stats */}
-      {/* <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.6, duration: 0.5 }}
-        className="flex items-center gap-4 pt-4 text-xs text-muted-foreground"
-      >
-        <span>10 shaders</span>
-        <span className="text-border">·</span>
-        <span>4 categories</span>
-        <span className="text-border">·</span>
-        <span>shadcn CLI ready</span>
-      </motion.div> */}
+     
     </div>
   );
 };
