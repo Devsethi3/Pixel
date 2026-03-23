@@ -33,9 +33,6 @@ const HeroActions = () => {
           </Link>
         </Button>
       </motion.div>
-
-      {/* Stats */}
-     
     </div>
   );
 };
