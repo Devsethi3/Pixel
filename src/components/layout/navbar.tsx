@@ -69,10 +69,8 @@ export function Navbar() {
           )}
         >
           <div className="flex h-14 items-center justify-between">
-            {/* Logo */}
             <Logo />
 
-            {/* Desktop Nav */}
             <nav className="hidden items-center gap-0.5 md:flex">
               {navLinks.map((link) => {
                 const isActive =
@@ -124,7 +122,6 @@ export function Navbar() {
               })}
             </nav>
 
-            {/* Right Actions */}
             <div className="flex items-center gap-1.5 sm:gap-2">
               <div className="hidden sm:block">
                 <PackageManagerSelector />
@@ -134,6 +131,7 @@ export function Navbar() {
                 variant="outline"
                 size="lg"
                 asChild
+                className="text-foreground/80"
               >
                 <Link
                   href={SITE_CONFIG.github}
@@ -142,17 +140,16 @@ export function Navbar() {
                   aria-label="GitHub"
                 >
                   <Github className="size-4" />
-                  <span className="hidden sm:inline">GitHub</span>
+                  <span className="">GitHub</span>
                 </Link>
               </Button>
 
               <ThemeToggle />
 
-              {/* Mobile Menu Toggle */}
               <Button
                 variant="outline"
                 size="icon"
-                className="relative size-8 md:hidden"
+                className="relative size-8 md:hidden text-foreground/70"
                 onClick={() => setMobileOpen(!mobileOpen)}
                 aria-label="Toggle menu"
                 aria-expanded={mobileOpen}
@@ -173,11 +170,9 @@ export function Navbar() {
           </div>
         </motion.div>
 
-        {/* Mobile Menu - Rendered BELOW the navbar */}
         <AnimatePresence>
           {mobileOpen && (
             <>
-              {/* Backdrop - starts below navbar */}
               <motion.div
                 className="fixed inset-0 top-0 z-40 bg-background/60 backdrop-blur-sm md:hidden"
                 initial={{ opacity: 0 }}
@@ -187,7 +182,6 @@ export function Navbar() {
                 onClick={() => setMobileOpen(false)}
               />
 
-              {/* Menu Panel - positioned right below navbar */}
               <motion.div
                 className="relative z-50 mx-auto mt-2 w-full max-w-6xl md:hidden"
                 initial={{ opacity: 0, y: -12, scale: 0.98 }}
@@ -255,7 +249,6 @@ export function Navbar() {
                     })}
                   </div>
 
-                  {/* Mobile-only actions */}
                   <motion.div
                     className="border-t p-3"
                     initial={{ opacity: 0 }}
