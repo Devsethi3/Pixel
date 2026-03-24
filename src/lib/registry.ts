@@ -10,7 +10,8 @@ export interface RegistryItem {
   files: {
     path: string;
     content: string;
-    type: "registry:ui";
+    type: "registry:ui" | "registry:file";
+    target?: string;
   }[];
   dependencies: string[];
   devDependencies: string[];
@@ -1463,9 +1464,9 @@ export function getShaderComponentCode(id: string): string {
 
 export function generateRegistryItem(shaderId: string): RegistryItem | null {
   const shader = SHADERS_CONFIG.find((s) => s.id === shaderId);
-  const source = COMPONENT_SOURCES[shaderId];
+  const source = getShaderComponentCode(shaderId);
 
-  if (!shader || !source) return null;
+  if (!shader || source === "// Component not found") return null;
 
   return {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
@@ -1476,9 +1477,10 @@ export function generateRegistryItem(shaderId: string): RegistryItem | null {
     category: shader.category,
     files: [
       {
-        path: `components/shaders/${shader.id}.tsx`,
+        path: `${shader.id}.tsx`,
         content: source,
-        type: "registry:ui",
+        type: "registry:file",
+        target: `components/shaders/${shader.id}.tsx`,
       },
     ],
     dependencies: shader.dependencies,
