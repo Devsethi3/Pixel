@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "pnpm generate-registry",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "generate-registry": "tsx scripts/generate-registry.ts"
+    "generate-registry": "tsx src/scripts/generate-registry.ts"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
@@ -45,6 +46,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
+    "tsx": "^4.20.6",
     "typescript": "^5"
   }
 }

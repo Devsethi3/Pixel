@@ -2,7 +2,10 @@ import { SHADERS_CONFIG } from "./shaders-config";
 import { BASE_URL } from "./constants";
 
 export interface RegistryItem {
+  $schema?: string;
   name: string;
+  title?: string;
+  description?: string;
   type: "registry:ui";
   category: string;
   files: {
@@ -12,6 +15,7 @@ export interface RegistryItem {
   }[];
   dependencies: string[];
   devDependencies: string[];
+  registryDependencies?: string[];
   tailwind: {
     config: Record<string, unknown>;
   };
@@ -1466,7 +1470,10 @@ export function generateRegistryItem(shaderId: string): RegistryItem | null {
   if (!shader || !source) return null;
 
   return {
+    $schema: "https://ui.shadcn.com/schema/registry-item.json",
     name: shader.id,
+    title: shader.name,
+    description: shader.description,
     type: "registry:ui",
     category: shader.category,
     files: [
@@ -1478,6 +1485,7 @@ export function generateRegistryItem(shaderId: string): RegistryItem | null {
     ],
     dependencies: shader.dependencies,
     devDependencies: [],
+    registryDependencies: [],
     tailwind: {
       config: {},
     },

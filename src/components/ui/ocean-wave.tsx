@@ -1,0 +1,1 @@
+... (component code as string)
