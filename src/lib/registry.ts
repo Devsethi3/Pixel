@@ -1,5 +1,4 @@
 import { SHADERS_CONFIG } from "./shaders-config";
-import { BASE_URL } from "./constants";
 
 export interface RegistryItem {
   $schema?: string;
@@ -21,7 +20,6 @@ export interface RegistryItem {
   };
 }
 
-// Map of shader IDs to their component source code
 const COMPONENT_SOURCES: Record<string, string> = {
   "ocean-wave": `"use client";
 
