@@ -83,23 +83,13 @@ export function TerminalProcess() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 sm:mb-16 md:mb-20 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-3 py-1 text-xs text-muted-foreground mb-4 sm:mb-6">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            </span>
-            Quick Setup
-          </div>
           <PixelHeading
             initialFont="square"
             hoverFont="circle"
-            className="text-2xl font-semibold tracking-tight sm:text-3xl md:text-4xl lg:text-5xl"
+            className="text-2xl font-medium tracking-tight sm:text-3xl md:text-4xl lg:text-5xl"
           >
             Install in seconds
           </PixelHeading>
-          <p className="mx-auto mt-3 sm:mt-4 max-w-md text-sm sm:text-base md:text-lg text-muted-foreground/80">
-            One command. Full source code. Ready to customize.
-          </p>
         </div>
 
         {/* Main grid */}
