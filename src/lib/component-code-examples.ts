@@ -156,7 +156,6 @@ export default function ${componentName}({
   ];
 }
 
-// Pre-generated configs for each shader
 export const SHADER_COMPONENT_CONFIGS: Record<string, ShaderConfig> = {
   "ocean-wave": {
     id: "ocean-wave",
