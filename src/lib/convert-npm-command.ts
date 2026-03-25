@@ -5,10 +5,6 @@ export interface ConvertNpmCommandResult {
   bun: string;
 }
 
-/**
- * Converts a standard npm command into equivalent commands for all package managers.
- * This is a pure utility function that can be used in both server and client components.
- */
 export function convertNpmCommand(npmCommand: string): ConvertNpmCommandResult {
   if (npmCommand.startsWith("npm install")) {
     return {
