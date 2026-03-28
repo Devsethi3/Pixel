@@ -11,6 +11,14 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Installation",
   description: "How to install Pixel shader components in your project.",
+  openGraph: {
+    title: "Installation | Pixel",
+    description: "Step-by-step installation guide for Pixel shader components.",
+    url: "https://pixel.devsethi.site/docs/installation",
+  },
+  alternates: {
+    canonical: "/docs/installation",
+  },
 };
 
 export default function InstallationPage() {
