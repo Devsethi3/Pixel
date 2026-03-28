@@ -12,7 +12,7 @@ export default function HomePage() {
         <Suspense fallback={<GridSkeleton />}>
           <ShaderGrid />
         </Suspense>
-        <TerminalProcess />
+        {/* <TerminalProcess /> */}
       </section>
       <Footer />
     </>
