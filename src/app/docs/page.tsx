@@ -1,10 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Check,
-  ChevronRight,
-} from "lucide-react";
+import { ArrowRight, Check, ChevronRight } from "lucide-react";
 import { CodeBlockCommand } from "@/components/docs/code-block-command";
 import { convertNpmCommand } from "@/lib/convert-npm-command";
 import { QuickStartCodeBlock } from "@/components/docs/quick-start-code-block";
@@ -13,6 +9,15 @@ export const metadata: Metadata = {
   title: "Getting Started",
   description:
     "Learn how to install and use Pixel shader backgrounds in your React and Next.js projects.",
+  openGraph: {
+    title: "Documentation | Pixel",
+    description:
+      "Browse the full Pixel documentation. Learn how to install, configure, and use GPU-powered shader components.",
+    url: "https://pixel.devsethi.site/docs",
+  },
+  alternates: {
+    canonical: "/docs",
+  },
 };
 
 export default function DocsPage() {
