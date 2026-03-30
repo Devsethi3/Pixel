@@ -34,7 +34,7 @@ const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME}  GPU-Powered Shader Components for React`,
+    default: `${SITE_NAME} | GPU-Powered Shader Components for React`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
