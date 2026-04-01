@@ -4,7 +4,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import Logo from "../ui/logo";
 import Link from "next/link";
-import { Github, TwitterIcon } from "lucide-react";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { GithubIcon, NewTwitterIcon } from "@hugeicons/core-free-icons";
 
 export function Footer() {
   return (
@@ -20,17 +21,17 @@ export function Footer() {
           <div className="col-span-6 flex flex-col gap-4 pt-5 md:col-span-4">
             <Logo />
             <p className="max-w-sm text-balance text-muted-foreground text-sm">
-              Create beautiful background shaders.
+              Explore beautiful background shaders.
             </p>
             <div className="flex items-center gap-4">
               <Button size={"icon-lg"} variant={"outline"}>
                 <Link href={"https://x.com/imsethidev"} target="_blank">
-                  <TwitterIcon />
+                  <HugeiconsIcon icon={NewTwitterIcon} />
                 </Link>
               </Button>
               <Button size={"icon-lg"} variant={"outline"}>
                 <Link href={"https://github.com/Devsethi3"} target="_blank">
-                  <Github />
+                  <HugeiconsIcon icon={GithubIcon} />
                 </Link>
               </Button>
             </div>
@@ -41,7 +42,10 @@ export function Footer() {
               <Link href={"/docs"} className="text-xs">
                 Documentation
               </Link>
-              <Link href={"/"} className="text-xs">
+              <Link
+                href={"/"}
+                className="text-xs text-muted-foreground pointer-events-none"
+              >
                 Templates
               </Link>
               <Link
@@ -68,7 +72,10 @@ export function Footer() {
         <div className="absolute inset-x-0 h-px w-full bg-border" />
         <div className="flex max-w-4xl flex-col justify-between gap-2 py-4">
           <p className="text-center font-light text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} Dev, All rights reserved
+            Open Source | {new Date().getFullYear()} Created by{" "}
+            <Link href={"https://devsethi.site"} target="_blank" className="text-foreground underline">
+              Devsethi
+            </Link>
           </p>
         </div>
       </div>

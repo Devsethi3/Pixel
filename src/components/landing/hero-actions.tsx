@@ -1,3 +1,5 @@
+"use client";
+
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
@@ -5,6 +7,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { GithubIcon } from "@hugeicons/core-free-icons";
 import { Button } from "../ui/button";
+import { TextureButton } from "../ui/texture-button";
 
 const HeroActions = () => {
   return (
@@ -21,7 +24,7 @@ const HeroActions = () => {
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
         </Button>
-        <Button asChild size={"lg"} variant={"secondary"} className="h-10 px-4">
+        <TextureButton asChild size={"lg"} variant={"accent"} className="h-10 px-4">
           <Link
             href={SITE_CONFIG.github}
             target="_blank"
@@ -31,7 +34,7 @@ const HeroActions = () => {
             <HugeiconsIcon icon={GithubIcon} className="size-4" />
             GitHub
           </Link>
-        </Button>
+        </TextureButton>
       </motion.div>
     </div>
   );

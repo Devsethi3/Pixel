@@ -29,12 +29,12 @@ const geistMono = Geist_Mono({
 const SITE_URL = "https://pixel.devsethi.site";
 const SITE_NAME = "Pixel";
 const SITE_DESCRIPTION =
-  "Open-source collection of GPU-powered shader components for React & Next.js. Copy-paste beautiful WebGL effects into your projects.";
+  "Open-source collection of beautiful shader components for React & Next.js. Copy-paste beautiful WebGL effects into your projects.";
 const OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} | GPU-Powered Shader Components for React`,
+    default: `${SITE_NAME} Shaders for React & Next.js: GPU Backgrounds`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: SITE_URL,
-    title: `${SITE_NAME} | GPU-Powered Shader Components for React`,
+    title: `${SITE_NAME} Shaders for React & Next.js: GPU Backgrounds`,
     description: SITE_DESCRIPTION,
     siteName: SITE_NAME,
     images: [
@@ -89,7 +89,7 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_NAME} - GPU-Powered Shader Components for React`,
+    title: `${SITE_NAME} Shaders for React & Next.js: GPU Backgrounds`,
     description: SITE_DESCRIPTION,
     creator: "@imsethidev",
     site: "@imsethidev",
