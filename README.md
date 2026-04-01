@@ -1,22 +1,42 @@
+<div align="center">
+  <img src="public/logo.svg" alt="Pixel Logo" width="80" height="80" />
+
 # Pixel
 
 Open-source, production-focused shader backgrounds for React and Next.js.
+<br />
+A collection of shader components that uses Paper Design shaders with shadcn-compatible registry.
 
-Pixel is a curated collection of GPU-powered shader components with a docs site, preview gallery, and shadcn-compatible registry endpoint so teams can copy, install, and ship visuals quickly.
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Visit_Site-black?style=for-the-badge)](https://pixel.devsethi.site)
+[![GitHub Stars](https://img.shields.io/github/stars/devsethi3/pixel?style=for-the-badge&logo=github&color=yellow)](https://github.com/devsethi3/pixel)
 
-## Live Project
+</div>
 
-- Website: https://pixel.devsethi.site
+![Landing Page](/public/og-image.png)
+
 - Docs: https://pixel.devsethi.site/docs
 - Installation guide: https://pixel.devsethi.site/docs/installation
 
 ## Why Pixel
 
 - Production-ready shader components with practical props and defaults
+- Built on top of `@paper-design/shaders-react` for high-quality GLSL shader effects
 - Copy-paste and CLI install flow via shadcn registry JSON
 - Category-based gallery with search and favorites support
 - Documentation pages for each shader with preview, install tabs, and prop tables
 - Next.js App Router architecture with static and dynamic docs routes
+
+## Paper Design Integration
+
+Pixel uses Paper Design's shader runtime (`@paper-design/shaders-react`) as the rendering engine behind each visual background.
+
+What this gives you:
+
+- Performant WebGL-based shader rendering with a React-first API
+- Rich visual effects without writing raw shader boilerplate in each app
+- Component-driven props that map cleanly to docs and registry metadata
+
+In this project, each shader component is wrapped and standardized so users can install it quickly via the registry and customize it through documented props.
 
 ## Current Shader Library
 
@@ -38,11 +58,20 @@ Registry JSON files are generated in public/r for CLI consumption.
 ## Tech Stack
 
 - Framework: Next.js 16 (App Router) + React 19 + TypeScript
-- Styling: Tailwind CSS v4 + shadcn/ui patterns
-- Animation/UI: motion, Radix primitives, vaul, sonner
+- Styling: Tailwind CSS v4 + shadcn/ui component patterns
+- Animation/UI: motion, Radix UI primitives, vaul (drawer), sonner (toast)
 - Shader runtime: @paper-design/shaders-react
 - State: zustand, jotai
-- Tooling: pnpm, ESLint (Next core web vitals + TS)
+- Tooling: pnpm, ESLint (Next core web vitals + TypeScript), PostCSS
+
+Core ecosystem packages used by the project include:
+
+- `next`, `react`, `react-dom`, `typescript`
+- `@paper-design/shaders-react`
+- `tailwindcss`, `class-variance-authority`, `clsx`, `tailwind-merge`
+- `zustand`, `jotai`
+- `framer-motion` / `motion`
+- `@radix-ui/*`, `vaul`, `sonner`
 
 ## Architecture Overview
 
@@ -97,18 +126,37 @@ Open http://localhost:3000.
 
 Pixel supports shadcn add from a hosted JSON endpoint.
 
+This means users can install a shader component directly from your registry URL, just like any other shadcn-compatible source.
+
 Example:
 
 ```bash
 npx shadcn add https://pixel.devsethi.site/r/ocean-wave.json
 ```
 
+You can also target your local dev server while testing registry output:
+
+```bash
+npx shadcn add http://localhost:3000/r/ocean-wave.json
+```
+
 Two delivery paths exist:
 
 - Dynamic endpoint: src/app/api/r/[name]/route.ts
-- Static files: public/r/*.json generated at build time
+- Static files: public/r/\*.json generated at build time
 
 Caching and CORS headers are configured for registry responses.
+
+Registry JSON is generated from a single source of truth in `src/lib/shaders-config.ts`, ensuring docs, gallery metadata, and install artifacts stay aligned.
+
+## shadcn Registry Compatibility
+
+Pixel is designed to work with the shadcn CLI registry model:
+
+- Each shader has a dedicated JSON artifact under `/r/<shader>.json`
+- Installation snippets in docs map to the same generated artifact
+- Registry generation is automated and repeatable via script
+- Dynamic API and static file outputs provide flexibility for hosting strategies
 
 ## Add a New Shader
 
