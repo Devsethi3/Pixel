@@ -7,6 +7,8 @@ import { Heart, Copy, Check, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
 import { getShaderComponent } from "@/components/shaders";
+import { ShaderContainer } from "@/components/shaders/shader-container";
+import { ShaderPlaceholder } from "@/components/shaders/shader-placeholder";
 import { BASE_URL } from "@/lib/constants";
 import type { ShaderConfig } from "@/lib/shaders-config";
 import { staggerItem } from "@/lib/animation-tokens";
@@ -60,24 +62,29 @@ export function ShaderCard({ shader }: ShaderCardProps) {
         transition={{ duration: 0.2 }}
       >
         {/* Preview Area */}
-        <div className="relative aspect-[16/10] overflow-hidden">
+        <div className="relative aspect-16/10 overflow-hidden">
           {ShaderComponent ? (
-            <Suspense
-              fallback={
-                <div className="flex h-full items-center justify-center bg-muted/20">
-                  <div className="size-4 animate-spin rounded-full border-2 border-muted-foreground/20 border-t-muted-foreground" />
-                </div>
-              }
+            <ShaderContainer
+              className="h-full w-full"
+              fallback={<ShaderPlaceholder className="h-full w-full" />}
             >
-              <ShaderComponent className="h-full w-full">
-                <div className="flex h-full items-center justify-center p-6">
-                  {/* <span className="text-lg font-semibold text-white drop-shadow-lg">
-                    {shader.name}
-                    hulap
-                  </span> */}
-                </div>
-              </ShaderComponent>
-            </Suspense>
+              <Suspense
+                fallback={
+                  <div className="flex h-full items-center justify-center bg-muted/20">
+                    <div className="size-4 animate-spin rounded-full border-2 border-muted-foreground/20 border-t-muted-foreground" />
+                  </div>
+                }
+              >
+                <ShaderComponent className="h-full w-full">
+                  <div className="flex h-full items-center justify-center p-6">
+                    {/* <span className="text-lg font-semibold text-white drop-shadow-lg">
+                      {shader.name}
+                      hulap
+                    </span> */}
+                  </div>
+                </ShaderComponent>
+              </Suspense>
+            </ShaderContainer>
           ) : (
             <div className="flex h-full items-center justify-center bg-muted/20">
               <span className="text-xs text-muted-foreground">Preview</span>

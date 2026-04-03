@@ -9,6 +9,9 @@ interface GlitchWaveProps {
   className?: string;
   speed?: number;
   intensity?: number;
+  "data-quality"?: "high" | "medium" | "low";
+  "data-reduce-animation"?: boolean;
+  "data-reduced-quality"?: boolean;
 }
 
 export default function GlitchWave({
@@ -16,6 +19,9 @@ export default function GlitchWave({
   className,
   speed = 0.18,
   intensity = 0.22,
+  "data-quality": qualityLevel = "high",
+  "data-reduce-animation": reduceAnimation = false,
+  "data-reduced-quality": reducedQuality = false,
 }: GlitchWaveProps) {
   const [ready, setReady] = useState(false);
 
@@ -23,6 +29,15 @@ export default function GlitchWave({
     const frame = requestAnimationFrame(() => setReady(true));
     return () => cancelAnimationFrame(frame);
   }, []);
+
+  // Adaptive parameters based on device quality
+  const adaptiveSpeed = reduceAnimation ? speed * 0.6 : speed;
+  const adaptiveIntensity =
+    qualityLevel === "low" ? intensity * 0.7 : intensity;
+  const adaptiveScale =
+    reducedQuality || qualityLevel === "low" ? 0.28 : 0.42;
+  const adaptiveNoise =
+    qualityLevel === "low" ? 0.18 : 0.3;
 
   return (
     <div
@@ -33,14 +48,14 @@ export default function GlitchWave({
         <GrainGradient
           colors={["#EF4444", "#DC2626", "#1C1917"]}
           colorBack="#0A0000"
-          speed={speed}
-          scale={0.42}
+          speed={adaptiveSpeed}
+          scale={adaptiveScale}
           rotation={-45}
           offsetX={0.3}
           offsetY={0.1}
           softness={0.45}
-          intensity={intensity}
-          noise={0.3}
+          intensity={adaptiveIntensity}
+          noise={adaptiveNoise}
           shape="wave"
           style={{
             position: "absolute",

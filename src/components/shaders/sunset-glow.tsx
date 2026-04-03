@@ -9,6 +9,9 @@ interface SunsetGlowProps {
   className?: string;
   speed?: number;
   intensity?: number;
+  "data-quality"?: "high" | "medium" | "low";
+  "data-reduce-animation"?: boolean;
+  "data-reduced-quality"?: boolean;
 }
 
 export default function SunsetGlow({
@@ -16,6 +19,9 @@ export default function SunsetGlow({
   className,
   speed = 0.12,
   intensity = 0.18,
+  "data-quality": qualityLevel = "high",
+  "data-reduce-animation": reduceAnimation = false,
+  "data-reduced-quality": reducedQuality = false,
 }: SunsetGlowProps) {
   const [ready, setReady] = useState(false);
 
@@ -23,6 +29,15 @@ export default function SunsetGlow({
     const frame = requestAnimationFrame(() => setReady(true));
     return () => cancelAnimationFrame(frame);
   }, []);
+
+  // Adaptive parameters based on device quality
+  const adaptiveSpeed = reduceAnimation ? speed * 0.6 : speed;
+  const adaptiveIntensity =
+    qualityLevel === "low" ? intensity * 0.7 : intensity;
+  const adaptiveScale =
+    reducedQuality || qualityLevel === "low" ? 0.35 : 0.55;
+  const adaptiveNoise =
+    qualityLevel === "low" ? 0.1 : 0.18;
 
   return (
     <div
@@ -33,14 +48,14 @@ export default function SunsetGlow({
         <GrainGradient
           colors={["#FF6B35", "#FF8E72", "#E83E8C"]}
           colorBack="#00000000"
-          speed={speed}
-          scale={0.55}
+          speed={adaptiveSpeed}
+          scale={adaptiveScale}
           rotation={45}
           offsetX={-0.1}
           offsetY={0.2}
           softness={0.65}
-          intensity={intensity}
-          noise={0.18}
+          intensity={adaptiveIntensity}
+          noise={adaptiveNoise}
           shape="wave"
           style={{
             position: "absolute",

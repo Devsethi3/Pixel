@@ -9,6 +9,9 @@ interface ParticleFieldProps {
   className?: string;
   speed?: number;
   intensity?: number;
+  "data-quality"?: "high" | "medium" | "low";
+  "data-reduce-animation"?: boolean;
+  "data-reduced-quality"?: boolean;
 }
 
 export default function ParticleField({
@@ -16,6 +19,9 @@ export default function ParticleField({
   className,
   speed = 0.1,
   intensity = 0.2,
+  "data-quality": qualityLevel = "high",
+  "data-reduce-animation": reduceAnimation = false,
+  "data-reduced-quality": reducedQuality = false,
 }: ParticleFieldProps) {
   const [ready, setReady] = useState(false);
 
@@ -23,6 +29,15 @@ export default function ParticleField({
     const frame = requestAnimationFrame(() => setReady(true));
     return () => cancelAnimationFrame(frame);
   }, []);
+
+  // Adaptive parameters based on device quality
+  const adaptiveSpeed = reduceAnimation ? speed * 0.6 : speed;
+  const adaptiveIntensity =
+    qualityLevel === "low" ? intensity * 0.7 : intensity;
+  const adaptiveScale =
+    reducedQuality || qualityLevel === "low" ? 0.35 : 0.52;
+  const adaptiveNoise =
+    qualityLevel === "low" ? 0.16 : 0.26;
 
   return (
     <div
@@ -33,14 +48,14 @@ export default function ParticleField({
         <GrainGradient
           colors={["#0D9488", "#10B981", "#064E3B"]}
           colorBack="#00000000"
-          speed={speed}
-          scale={0.52}
+          speed={adaptiveSpeed}
+          scale={adaptiveScale}
           rotation={-60}
           offsetX={-0.15}
           offsetY={0.2}
           softness={0.58}
-          intensity={intensity}
-          noise={0.26}
+          intensity={adaptiveIntensity}
+          noise={adaptiveNoise}
           shape="wave"
           style={{
             position: "absolute",

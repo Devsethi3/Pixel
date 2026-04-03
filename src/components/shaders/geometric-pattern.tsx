@@ -9,6 +9,9 @@ interface GeometricPatternProps {
   className?: string;
   speed?: number;
   intensity?: number;
+  "data-quality"?: "high" | "medium" | "low";
+  "data-reduce-animation"?: boolean;
+  "data-reduced-quality"?: boolean;
 }
 
 export default function GeometricPattern({
@@ -16,6 +19,9 @@ export default function GeometricPattern({
   className,
   speed = 0.14,
   intensity = 0.15,
+  "data-quality": qualityLevel = "high",
+  "data-reduce-animation": reduceAnimation = false,
+  "data-reduced-quality": reducedQuality = false,
 }: GeometricPatternProps) {
   const [ready, setReady] = useState(false);
 
@@ -23,6 +29,15 @@ export default function GeometricPattern({
     const frame = requestAnimationFrame(() => setReady(true));
     return () => cancelAnimationFrame(frame);
   }, []);
+
+  // Adaptive parameters based on device quality
+  const adaptiveSpeed = reduceAnimation ? speed * 0.6 : speed;
+  const adaptiveIntensity =
+    qualityLevel === "low" ? intensity * 0.7 : intensity;
+  const adaptiveScale =
+    reducedQuality || qualityLevel === "low" ? 0.3 : 0.45;
+  const adaptiveNoise =
+    qualityLevel === "low" ? 0.08 : 0.15;
 
   return (
     <div
@@ -33,14 +48,14 @@ export default function GeometricPattern({
         <GrainGradient
           colors={["#F59E0B", "#D97706", "#92400E"]}
           colorBack="#00000000"
-          speed={speed}
-          scale={0.45}
+          speed={adaptiveSpeed}
+          scale={adaptiveScale}
           rotation={75}
           offsetX={0.25}
           offsetY={-0.05}
           softness={0.62}
-          intensity={intensity}
-          noise={0.15}
+          intensity={adaptiveIntensity}
+          noise={adaptiveNoise}
           shape="wave"
           style={{
             position: "absolute",

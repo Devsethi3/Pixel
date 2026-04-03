@@ -9,6 +9,10 @@ interface OceanWaveProps {
   className?: string;
   speed?: number;
   intensity?: number;
+  // Performance hints from ShaderContainer
+  "data-quality"?: "high" | "medium" | "low";
+  "data-reduce-animation"?: boolean;
+  "data-reduced-quality"?: boolean;
 }
 
 export default function OceanWave({
@@ -16,6 +20,9 @@ export default function OceanWave({
   className,
   speed = 0.15,
   intensity = 0.2,
+  "data-quality": qualityLevel = "high",
+  "data-reduce-animation": reduceAnimation = false,
+  "data-reduced-quality": reducedQuality = false,
 }: OceanWaveProps) {
   const [ready, setReady] = useState(false);
 
@@ -23,6 +30,15 @@ export default function OceanWave({
     const frame = requestAnimationFrame(() => setReady(true));
     return () => cancelAnimationFrame(frame);
   }, []);
+
+  // Adaptive parameters based on device quality
+  const adaptiveSpeed = reduceAnimation ? speed * 0.6 : speed;
+  const adaptiveIntensity =
+    qualityLevel === "low" ? intensity * 0.7 : intensity;
+  const adaptiveScale =
+    reducedQuality || qualityLevel === "low" ? 0.4 : 0.6;
+  const adaptiveNoise =
+    qualityLevel === "low" ? 0.1 : 0.2;
 
   return (
     <div
@@ -33,14 +49,14 @@ export default function OceanWave({
         <GrainGradient
           colors={["#0066FF", "#00AAFF", "#004488"]}
           colorBack="#00000000"
-          speed={speed}
-          scale={0.6}
+          speed={adaptiveSpeed}
+          scale={adaptiveScale}
           rotation={-30}
           offsetX={0.1}
           offsetY={-0.15}
           softness={0.7}
-          intensity={intensity}
-          noise={0.2}
+          intensity={adaptiveIntensity}
+          noise={adaptiveNoise}
           shape="wave"
           style={{
             position: "absolute",
