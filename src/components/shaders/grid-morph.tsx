@@ -9,6 +9,9 @@ interface GridMorphProps {
   className?: string;
   speed?: number;
   intensity?: number;
+  "data-quality"?: "high" | "medium" | "low";
+  "data-reduce-animation"?: boolean;
+  "data-reduced-quality"?: boolean;
 }
 
 export default function GridMorph({
@@ -16,6 +19,9 @@ export default function GridMorph({
   className,
   speed = 0.12,
   intensity = 0.18,
+  "data-quality": qualityLevel = "high",
+  "data-reduce-animation": reduceAnimation = false,
+  "data-reduced-quality": reducedQuality = false,
 }: GridMorphProps) {
   const [ready, setReady] = useState(false);
 
@@ -23,6 +29,15 @@ export default function GridMorph({
     const frame = requestAnimationFrame(() => setReady(true));
     return () => cancelAnimationFrame(frame);
   }, []);
+
+  // Adaptive parameters based on device quality
+  const adaptiveSpeed = reduceAnimation ? speed * 0.6 : speed;
+  const adaptiveIntensity =
+    qualityLevel === "low" ? intensity * 0.7 : intensity;
+  const adaptiveScale =
+    reducedQuality || qualityLevel === "low" ? 0.33 : 0.5;
+  const adaptiveNoise =
+    qualityLevel === "low" ? 0.11 : 0.19;
 
   return (
     <div
@@ -33,14 +48,14 @@ export default function GridMorph({
         <GrainGradient
           colors={["#6366F1", "#818CF8", "#334155"]}
           colorBack="#00000000"
-          speed={speed}
-          scale={0.5}
+          speed={adaptiveSpeed}
+          scale={adaptiveScale}
           rotation={-120}
           offsetX={-0.1}
           offsetY={-0.2}
           softness={0.6}
-          intensity={intensity}
-          noise={0.19}
+          intensity={adaptiveIntensity}
+          noise={adaptiveNoise}
           shape="wave"
           style={{
             position: "absolute",
